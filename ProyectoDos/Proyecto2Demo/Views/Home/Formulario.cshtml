@@ -1,0 +1,198 @@
+﻿
+@{
+    ViewBag.Title = "Formulario";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<body>
+    @*<div class=" container-fluid bg-secondary  p-5 text-white text-center">
+            <img _ngcontent-serverapp-c133="" src="~/imagenes/img.PNG" alt="Woman with hard hat" class="builder-svg">
+            <h1>Boostráp Form Builder</h1>
+            <p>Bluid Boostrap 5 forms quikquy easly Form this tools</p>
+        </div>*@
+    <main>
+        <sbw-sb-form-builder>
+            <sbpro-page-header headerclasses="bg-light page-header-ui-light" _nghost-serverapp-c34="">
+                <header  class="page-header-ui bg-light page-header-ui-light">
+                    <div  class="page-header-ui-content position-relative overflow-hidden">
+
+                        <div  class="container">
+                            <div class="text-center">
+                                <h1  class="sb-forms-heading">Bootstrap Form Builder</h1>
+                                <p  class="lead mb-0">Build Bootstrap 5 forms quickly and easily with SB Form Builder!</p>
+                            </div>
+                        </div>
+                        <img  src="~/imagenes/img.PNG" alt="Woman with hard hat" class="builder-svg">
+                    </div>
+                    
+                </header>
+            </sbpro-page-header>
+        </sbw-sb-form-builder>
+    </main>
+
+
+
+    <div class="row aling-items-stretch mb-4">
+        <div class="col-lg-7">
+            <div class="text-center mb-2 fw-700 small text-uppercase">
+                Form Style
+            </div>
+            <div class="card mb-3">
+                <div class="card-body">
+                    <div class="text-center">
+                        <div class="form-check form-check-inline">
+                            <input id="kinBootstrap" type="radio" class="form-check-input" />
+                            <label for="kinBootstrap" class="form-check-label">Boostrap</label>
+                        </div>
+                        <div class="form-check form-check-inline">
+                            <input id="kinBootstrapFloating" type="radio" class="form-check-input" />
+                            <label for="kinBootstrapFloating" class="form-check-label">Boostrap Floatnig Labels</label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="text-center mb-2 fw-700 small text-uppercase">
+                Form Fields
+            </div>
+
+            <div class="card card-form-spec mb-2">
+                <div class="card-body">
+                    <div class="row align-items-center">
+                        <div class="col-4">
+                            <div class="form-floating">
+                                <select aria-label="Form field type selection" class="form-select">
+                                    <option value="input">Input</option>
+                                    <option value="email">email</option>
+                                    <option value="textarea">textarea</option>
+                                    <option value="select">select</option>
+                                    <option value="radios">radios</option>
+                                    <option value="checks">checks</option>
+                                    <option value="switch"></option>
+                                </select>
+                                <label>Type</label>
+                            </div>
+                        </div>
+
+                        <div class="col">
+                            <div class="form-floating">
+                                <input class="form-control ng-valid ng-dirty ng-touched" />
+                                <label for="formFieldLabel1"> Label</label>
+
+                            </div>
+                        </div>
+
+                        <div class="col-auto">
+                            <div class="form-check">
+                                <input type="checkbox" value="required" class="form-check-input" id="formFieldRequired1" />
+                                <label class="form-check-label" for="formFielRequired1">
+                                    <div class="small">Required</div>
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+            <div class="card card-form-spec mb-2">
+                <div class="card-body">
+                    <div class="row align-items-center">
+                        <div class="col-4">
+                            <div class="form-floating">
+                                <select aria-label="Form field type selection" class="form-select">
+                                    <option value="input">Input</option>
+                                    <option value="email">email</option>
+                                    <option value="textarea">textarea</option>
+                                    <option value="select">select</option>
+                                    <option value="radios">radios</option>
+                                    <option value="checks">checks</option>
+                                    <option value="switch">Switch</option>
+                                </select>
+                                <label>Type</label>
+                            </div>
+                        </div>
+
+                        <div class="col">
+                            <div class="form-floating">
+                                <input class="form-control ng-untouched ng-pristine ng-valid" />
+                                <label for="formFieldLabel1">Label</label>
+                            </div>
+                        </div>
+
+                        <div class="col-auto">
+                            <div class="form-check">
+                                <input type="checkbox" value="required" class="form-check-input" />
+                                <label class="form-check-label" for="formFieldRequired1">
+                                    <div class="small">Required</div>
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
+            </div>
+
+            <div class="add-new-field pointer-event pointer text-center p-4">
+                <fa-icon class="ng-fa-icon me-2 text-gray-400">
+                    <svg role="img" aria-hidden="true" focusable="false" data-prefix="far" data-icon="plus" class="svg-inline--fa fa-plus" viewBox="0 0 448 512">
+                        <path fill="currentColor" d="M248 72c0-13.3-10.7-24-24-24s-24 10.7-24 24V232H40c-13.3 0-24 10.7-24 24s10.7 24 24 24H200V440c0 13.3 10.7 24 24 24s24-10.7 24-24V280H408c13.3 0 24-10.7 24-24s-10.7-24-24-24H248V72z"></path>
+                    </svg>
+                </fa-icon>
+                "Add new Field"
+            </div>
+        </div>
+
+        <!--Segundo Bloque-->
+        <div class="col-lg-5">
+            <div class="sticky-top">
+                <div class="text-center mb-2 fw-700 small text-uppercase">
+                    Form Preview
+                </div>
+                <div class="card mb-4">
+                    <div class="card-body">
+                        <form class="ng-untouched ng-pristine ng-valid">
+                            <div class="mb-3">
+                                <label class="form-label" for="emailAddress">Email Address</label>
+                                <input type="email" class="form-control" placeholder="Email Address" data-sb-validations="required,email" data-sb-can-submit="no" />
+                                <div _ngcontent-serverapp-c31="" class="invalid-feedback d-none" data-sb-feedback="emailAddress:required">Email Address is required.</div>
+                                <div _ngcontent-serverapp-c31="" class="invalid-feedback d-none" data-sb-feedback="emailAddress:email">Email is not valid.</div>
+                            </div>
+
+                            <div _ngcontent-serverapp-c31="" class="mb-3">
+                                <!----><!----><!---->
+                                <label _ngcontent-serverapp-c31="" class="form-label" for="message">Message</label>
+                                <textarea _ngcontent-serverapp-c31="" type="text" class="form-control" style="height: 10rem;" id="message" placeholder="Message" data-sb-validations="required" data-sb-can-submit="no"></textarea>
+                                <div _ngcontent-serverapp-c31="" class="invalid-feedback d-none" data-sb-feedback="message:required">Message is required.</div><!----><!----><!----><!----><!----><!----><!----><!---->
+                            </div>
+
+                            <div _ngcontent-serverapp-c31="" id="submitSuccessMessage" class="d-none"><div _ngcontent-serverapp-c31="" class="text-center mb-3"><div _ngcontent-serverapp-c31="" class="fw-bolder">Form submission successful!</div> To activate this form, sign up at<br _ngcontent-serverapp-c31=""><a _ngcontent-serverapp-c31="" href="https://startbootstrap.com/solution/contact-forms">https://startbootstrap.com/solution/contact-forms</a><br _ngcontent-serverapp-c31=""><br _ngcontent-serverapp-c31=""><button _ngcontent-serverapp-c31="" id="resetFormButton" type="button" class="btn btn-primary">Reset this form</button></div></div>
+                            <div _ngcontent-serverapp-c31="" id="submitErrorMessage" class="d-none">
+                                <div _ngcontent-serverapp-c31="" class="text-center text-danger mb-3">
+                                    Error sending message!
+                                </div>
+                            </div>
+                            <div _ngcontent-serverapp-c31="" class="d-grid">
+                                <button _ngcontent-serverapp-c31="" id="submitButton" type="submit" class="btn btn-primary disabled">
+                                    Submit
+                                </button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+
+
+
+
+
+        </div>
+
+
+    </div>
+
+
+
+</body>
+

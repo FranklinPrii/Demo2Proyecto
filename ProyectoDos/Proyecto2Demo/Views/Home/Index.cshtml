@@ -29,81 +29,88 @@
                             <div class="card-body p-4 p-lg-5 text-black">
 
 
-                              
 
-                                    <div class="d-flex align-items-center mb-3 pb-1">
-                                        <i class="fas fa-cubes fa-2x me-3" style="color: #ff6219;"></i>
-                                        <span class="h1 fw-bold mb-0">ESAN</span>
-                                    </div>
 
-                                    <h5 class="fw-normal mb-3 pb-3" style="letter-spacing: 1px;">Ingresar a la plataforma</h5>
+                                <div class="d-flex align-items-center mb-3 pb-1">
+                                    <i class="fas fa-cubes fa-2x me-3" style="color: #ff6219;"></i>
+                                    <span class="h1 fw-bold mb-0">ESAN</span>
+                                </div>
 
-                                    <div class="form-outline mb-4 was-validated">
-                                        <label class="form-label" for="username">Email estudiante</label><br />
-                                        <input type="text" id="username" class="form-control form-control-lg" placeholder="Enter email"  />
-                                        <div class="valid-feedback">Valido.</div>
-                                        <div class="invalid-feedback">Ingrese un correo valido</div>
-                                    </div>
+                                <h5 class="fw-normal mb-3 pb-3" style="letter-spacing: 1px;">Ingresar a la plataforma</h5>
 
-                                    <div class="form-outline mb-4">
-                                        <label class="form-label" for="password">Password</label>
-                                        <input type="password" id="password" class="form-control form-control-lg" />
-                                    </div>
+                                <div class="form-outline mb-4 was-validated">
+                                    <label class="form-label" for="username">Email estudiante</label><br />
+                                    <input type="text" id="username" class="form-control form-control-lg" placeholder="Enter email" required/>
+                                    <div class="valid-feedback">Valido.</div>
+                                    <div class="invalid-feedback">Ingrese un correo valido</div>
+                                </div>
 
-                                  
+                                <div class="form-outline mb-4">
+                                    <label class="form-label" for="password">Password</label>
+                                    <input type="password" id="password" class="form-control form-control-lg" required/>
+                                </div>
 
-                                    <!--<div class="pt-1 mb-4">
-                                        <a class="btn btn-dark btn-lg btn-block" onclick="sendData()"--> @*href="@Url.Action("Formulario","Home")*@<!--">Login</a>
-                                    </div>-->
 
-                                    <button type="button" onclick="sendData();">Ingresar</button>
 
-                                    <a class="small text-muted" href="#!">¿Has olvidado tu contraseña?</a>
-                                    <p class="mb-5 pb-lg-2" style="color: #393f81;">
-                                        ¿No tienes una cuenta?
-                                        <a href="#!" style="color: #393f81;">Registrate</a>
-                                    </p>
-                                    <a href="#!" class="small text-muted">Terms of use.</a>
-                                    <a href="#!" class="small text-muted">Privacy policy</a>
+                                <!--<div class="pt-1 mb-4">
+                <a class="btn btn-dark btn-lg btn-block" onclick="sendData()"-->
+                                @*href="@Url.Action("Formulario","Home")*@
+                                <!--">Login</a>
+            </div>-->
+
+                                <button type="button" onclick="sendData()">Ingresar</button>
+
+
+
+                                <a class="small text-muted" href="#!">¿Has olvidado tu contraseña?</a>
+                                <p class="mb-5 pb-lg-2" style="color: #393f81;">
+                                    ¿No tienes una cuenta?
+                                    <a href="#!" style="color: #393f81;">Registrate</a>
+                                </p>
+                                <a href="#!" class="small text-muted">Terms of use.</a>
+                                <a href="#!" class="small text-muted">Privacy policy</a>
 
 
                             </div>
                         </div>
 
+                        
+
 
                         @*AJAXXXXXXXXXXXXXXXXXX*@
-                    <script>
-                            function sendData() {
-                                var username = $('#username').val();
-                                var password = $('#password').val();
+                        <script>
+                        function sendData() {
+                            var username = $('#username').val();
+                            var password = $('#password').val();
 
-
-
-                                 // Enviar datos al servidor mediante AJAX
+                            //Enviar las peticiones Ajax
                             $.ajax({
                                 type: 'POST',
                                 url: '@Url.Action("GuardarDatos", "Home")',
-                                data: { username: username, password: password },
-                                success: function (response) {
+                                //Parametros
+                                data :{ username: username, password: password },
 
-                                    if (response==1) {
-                                        window.location.href = '@Url.Action("Formulario", "Home")';
-                                    } else {
-                                        alert("Datos incorrectos");
+                                success: function (a) {
+
+                                    if (a == 1) {
+                                        window.location.href = '@Url.Action("Formulario","Home")';
+                                    }
+                                    else {
+                                        alert("Datos incorrectos , Vuelve a escribir la contraseña");
                                     }
 
-                                    /*console.log('Datos enviados con éxito:', response);*/
+
                                 },
                                 error: function (error) {
-                                    console.error('Error al enviar datos:', error);
-                                }
+                                    alert("Contraseña incorrecta", error);
+                            }
+
                             });
 
+                        }
 
 
-
-                            }
-                    </script>
+                        </script>
 
 
 

@@ -1,0 +1,56 @@
+﻿
+@{
+    ViewBag.Title = "Table";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Table</h2>
+
+<div class="row m-4">
+    <div class="col-sm-12">
+        <div class="card">
+            <div class="card-header">
+                Ejemplo Crud con MVC en Datable con JQUERY
+            </div>
+            <div class="card-body">
+                <table id="table" class="table">
+                    <thead>
+                        <tr>
+                            <th>Nota de Credito</th>
+                            <th>Activo</th>
+                            <th>Proceso Matricula</th>
+                            <th>IdUsuario</th>
+                            <th>Fecha Creacion</th>
+                            <th>Visible</th>
+                        </tr>
+                    </thead>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section scripts{
+    <script>
+        $(document).ready(function () {
+            $('#table').DataTable({
+                "ajax": {
+                    "url": "@Url.Action("Listar","Home")",
+                    "type": "GET",
+                    "dataType": "json"
+                },
+                "columns": [
+                    { "data": "NotaCodigo" },
+                    { "data": "Activo" },
+                    { "data": "ProcesoMatricula" },
+                    { "data": "IdUsuario" },
+                    { "data": "FechaCreacion" },
+                    { "data": "Visible" },
+                ]
+        });
+
+ });    
+
+    </script>    
+     
+    }

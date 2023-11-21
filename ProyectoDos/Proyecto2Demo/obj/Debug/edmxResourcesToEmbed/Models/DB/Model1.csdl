@@ -1,0 +1,18 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="SisEdutivaModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityType Name="ActivaEvaluacion">
+    <Key>
+      <PropertyRef Name="NotaCodigo" />
+      <PropertyRef Name="Activo" />
+    </Key>
+    <Property Name="NotaCodigo" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="Activo" Type="Boolean" Nullable="false" />
+    <Property Name="ProcesoMatricula" Type="Int32" />
+    <Property Name="IdUsuario" Type="Int32" />
+    <Property Name="FechaCreacion" Type="DateTime" Precision="3" />
+    <Property Name="Visible" Type="Boolean" />
+  </EntityType>
+  <EntityContainer Name="SisEdutivaEntities" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="ActivaEvaluacion" EntityType="Self.ActivaEvaluacion" />
+  </EntityContainer>
+</Schema>

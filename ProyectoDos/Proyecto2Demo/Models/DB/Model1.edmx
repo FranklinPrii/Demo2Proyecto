@@ -1,0 +1,95 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="SisEdutivaModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <!--Errores durante la generación:
+advertencia 6002: La tabla o vista 'SisEdutiva.dbo.ActivaEvaluacion' no tiene definida ninguna clave principal. Se ha inferido la clave y la definición se creado como una vista o tabla de solo lectura.-->
+        <EntityType Name="ActivaEvaluacion">
+          <Key>
+            <PropertyRef Name="NotaCodigo" />
+            <PropertyRef Name="Activo" />
+          </Key>
+          <Property Name="NotaCodigo" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="Activo" Type="bit" Nullable="false" />
+          <Property Name="ProcesoMatricula" Type="int" />
+          <Property Name="IdUsuario" Type="int" />
+          <Property Name="FechaCreacion" Type="datetime" />
+          <Property Name="Visible" Type="bit" />
+        </EntityType>
+        <EntityContainer Name="SisEdutivaModelStoreContainer">
+          <EntitySet Name="ActivaEvaluacion" EntityType="Self.ActivaEvaluacion" store:Type="Tables" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [ActivaEvaluacion].[NotaCodigo] AS [NotaCodigo], 
+    [ActivaEvaluacion].[Activo] AS [Activo], 
+    [ActivaEvaluacion].[ProcesoMatricula] AS [ProcesoMatricula], 
+    [ActivaEvaluacion].[IdUsuario] AS [IdUsuario], 
+    [ActivaEvaluacion].[FechaCreacion] AS [FechaCreacion], 
+    [ActivaEvaluacion].[Visible] AS [Visible]
+    FROM [dbo].[ActivaEvaluacion] AS [ActivaEvaluacion]</DefiningQuery>
+          </EntitySet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="SisEdutivaModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="ActivaEvaluacion">
+          <Key>
+            <PropertyRef Name="NotaCodigo" />
+            <PropertyRef Name="Activo" />
+          </Key>
+          <Property Name="NotaCodigo" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Activo" Type="Boolean" Nullable="false" />
+          <Property Name="ProcesoMatricula" Type="Int32" />
+          <Property Name="IdUsuario" Type="Int32" />
+          <Property Name="FechaCreacion" Type="DateTime" Precision="3" />
+          <Property Name="Visible" Type="Boolean" />
+        </EntityType>
+        <EntityContainer Name="SisEdutivaEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="ActivaEvaluacion" EntityType="Self.ActivaEvaluacion" />
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="SisEdutivaModelStoreContainer" CdmEntityContainer="SisEdutivaEntities">
+          <EntitySetMapping Name="ActivaEvaluacion">
+            <EntityTypeMapping TypeName="SisEdutivaModel.ActivaEvaluacion">
+              <MappingFragment StoreEntitySet="ActivaEvaluacion">
+                <ScalarProperty Name="NotaCodigo" ColumnName="NotaCodigo" />
+                <ScalarProperty Name="Activo" ColumnName="Activo" />
+                <ScalarProperty Name="ProcesoMatricula" ColumnName="ProcesoMatricula" />
+                <ScalarProperty Name="IdUsuario" ColumnName="IdUsuario" />
+                <ScalarProperty Name="FechaCreacion" ColumnName="FechaCreacion" />
+                <ScalarProperty Name="Visible" ColumnName="Visible" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="Ninguno" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

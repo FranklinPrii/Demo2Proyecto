@@ -1,0 +1,29 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="SisEdutivaModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <!--Errores durante la generación:
+advertencia 6002: La tabla o vista 'SisEdutiva.dbo.ActivaEvaluacion' no tiene definida ninguna clave principal. Se ha inferido la clave y la definición se creado como una vista o tabla de solo lectura.-->
+  <EntityType Name="ActivaEvaluacion">
+    <Key>
+      <PropertyRef Name="NotaCodigo" />
+      <PropertyRef Name="Activo" />
+    </Key>
+    <Property Name="NotaCodigo" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="Activo" Type="bit" Nullable="false" />
+    <Property Name="ProcesoMatricula" Type="int" />
+    <Property Name="IdUsuario" Type="int" />
+    <Property Name="FechaCreacion" Type="datetime" />
+    <Property Name="Visible" Type="bit" />
+  </EntityType>
+  <EntityContainer Name="SisEdutivaModelStoreContainer">
+    <EntitySet Name="ActivaEvaluacion" EntityType="Self.ActivaEvaluacion" store:Type="Tables" store:Schema="dbo">
+      <DefiningQuery>SELECT 
+    [ActivaEvaluacion].[NotaCodigo] AS [NotaCodigo], 
+    [ActivaEvaluacion].[Activo] AS [Activo], 
+    [ActivaEvaluacion].[ProcesoMatricula] AS [ProcesoMatricula], 
+    [ActivaEvaluacion].[IdUsuario] AS [IdUsuario], 
+    [ActivaEvaluacion].[FechaCreacion] AS [FechaCreacion], 
+    [ActivaEvaluacion].[Visible] AS [Visible]
+    FROM [dbo].[ActivaEvaluacion] AS [ActivaEvaluacion]</DefiningQuery>
+    </EntitySet>
+  </EntityContainer>
+</Schema>

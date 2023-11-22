@@ -14,6 +14,14 @@ advertencia 6002: La tabla o vista 'SisEdutiva.dbo.ActivaEvaluacion' no tiene de
     <Property Name="FechaCreacion" Type="datetime" />
     <Property Name="Visible" Type="bit" />
   </EntityType>
+  <Function Name="sp_RegistrarRegistro22" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="NotaCodigo" Type="nvarchar" Mode="In" />
+    <Parameter Name="Activo" Type="bit" Mode="In" />
+    <Parameter Name="ProcesoMatricula" Type="int" Mode="In" />
+    <Parameter Name="IdUsuario" Type="int" Mode="In" />
+    <Parameter Name="FechaCreacion" Type="datetime" Mode="In" />
+    <Parameter Name="Visible" Type="bit" Mode="In" />
+  </Function>
   <EntityContainer Name="SisEdutivaModelStoreContainer">
     <EntitySet Name="ActivaEvaluacion" EntityType="Self.ActivaEvaluacion" store:Type="Tables" store:Schema="dbo">
       <DefiningQuery>SELECT 

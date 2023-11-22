@@ -12,6 +12,8 @@ namespace Proyecto2Demo.Models.DB
     using System;
     using System.Data.Entity;
     using System.Data.Entity.Infrastructure;
+    using System.Data.Entity.Core.Objects;
+    using System.Linq;
     
     public partial class SisEdutivaEntities : DbContext
     {
@@ -26,5 +28,34 @@ namespace Proyecto2Demo.Models.DB
         }
     
         public virtual DbSet<ActivaEvaluacion> ActivaEvaluacion { get; set; }
+    
+        public virtual int sp_RegistrarRegistro22(string notaCodigo, Nullable<bool> activo, Nullable<int> procesoMatricula, Nullable<int> idUsuario, Nullable<System.DateTime> fechaCreacion, Nullable<bool> visible)
+        {
+            var notaCodigoParameter = notaCodigo != null ?
+                new ObjectParameter("NotaCodigo", notaCodigo) :
+                new ObjectParameter("NotaCodigo", typeof(string));
+    
+            var activoParameter = activo.HasValue ?
+                new ObjectParameter("Activo", activo) :
+                new ObjectParameter("Activo", typeof(bool));
+    
+            var procesoMatriculaParameter = procesoMatricula.HasValue ?
+                new ObjectParameter("ProcesoMatricula", procesoMatricula) :
+                new ObjectParameter("ProcesoMatricula", typeof(int));
+    
+            var idUsuarioParameter = idUsuario.HasValue ?
+                new ObjectParameter("IdUsuario", idUsuario) :
+                new ObjectParameter("IdUsuario", typeof(int));
+    
+            var fechaCreacionParameter = fechaCreacion.HasValue ?
+                new ObjectParameter("FechaCreacion", fechaCreacion) :
+                new ObjectParameter("FechaCreacion", typeof(System.DateTime));
+    
+            var visibleParameter = visible.HasValue ?
+                new ObjectParameter("Visible", visible) :
+                new ObjectParameter("Visible", typeof(bool));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("sp_RegistrarRegistro22", notaCodigoParameter, activoParameter, procesoMatriculaParameter, idUsuarioParameter, fechaCreacionParameter, visibleParameter);
+        }
     }
 }

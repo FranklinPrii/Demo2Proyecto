@@ -14,5 +14,13 @@
   </EntityType>
   <EntityContainer Name="SisEdutivaEntities" annotation:LazyLoadingEnabled="true">
     <EntitySet Name="ActivaEvaluacion" EntityType="Self.ActivaEvaluacion" />
+    <FunctionImport Name="sp_RegistrarRegistro22">
+      <Parameter Name="NotaCodigo" Mode="In" Type="String" />
+      <Parameter Name="Activo" Mode="In" Type="Boolean" />
+      <Parameter Name="ProcesoMatricula" Mode="In" Type="Int32" />
+      <Parameter Name="IdUsuario" Mode="In" Type="Int32" />
+      <Parameter Name="FechaCreacion" Mode="In" Type="DateTime" />
+      <Parameter Name="Visible" Mode="In" Type="Boolean" />
+    </FunctionImport>
   </EntityContainer>
 </Schema>

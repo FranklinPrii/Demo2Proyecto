@@ -254,8 +254,8 @@ D:\CLONACIONDOS\Demo2Proyecto\ProyectoDos\Proyecto2Demo\bin\es\System.Web.Razor.
 D:\CLONACIONDOS\Demo2Proyecto\ProyectoDos\Proyecto2Demo\bin\es\System.Web.WebPages.resources.dll
 D:\CLONACIONDOS\Demo2Proyecto\ProyectoDos\Proyecto2Demo\bin\es\System.Web.WebPages.Deployment.resources.dll
 D:\CLONACIONDOS\Demo2Proyecto\ProyectoDos\Proyecto2Demo\bin\es\System.Web.WebPages.Razor.resources.dll
+D:\CLONACIONDOS\Demo2Proyecto\ProyectoDos\Proyecto2Demo\obj\Debug\Proyecto2Demo.csproj.AssemblyReference.cache
 D:\CLONACIONDOS\Demo2Proyecto\ProyectoDos\Proyecto2Demo\obj\Debug\Proyecto2Demo.csproj.CoreCompileInputs.cache
 D:\CLONACIONDOS\Demo2Proyecto\ProyectoDos\Proyecto2Demo\obj\Debug\Proyecto2Demo.csproj.CopyComplete
 D:\CLONACIONDOS\Demo2Proyecto\ProyectoDos\Proyecto2Demo\obj\Debug\Proyecto2Demo.dll
 D:\CLONACIONDOS\Demo2Proyecto\ProyectoDos\Proyecto2Demo\obj\Debug\Proyecto2Demo.pdb
-D:\CLONACIONDOS\Demo2Proyecto\ProyectoDos\Proyecto2Demo\obj\Debug\Proyecto2Demo.csproj.AssemblyReference.cache

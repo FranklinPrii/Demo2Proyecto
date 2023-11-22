@@ -13,5 +13,6 @@
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
+    <FunctionImportMapping FunctionImportName="sp_RegistrarRegistro22" FunctionName="SisEdutivaModel.Store.sp_RegistrarRegistro22" />
   </EntityContainerMapping>
 </Mapping>

@@ -1,18 +1,29 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data.Entity;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using Proyecto2Demo.Models;
 using Proyecto2Demo.Models.DB;
+using System.ComponentModel.DataAnnotations;
+using System.Data.SqlClient;
+
+using System.Data.Entity;
 
 namespace Proyecto2Demo.Controllers
 {
     public class HomeController : Controller
     {
-        private SisEdutivaEntities db = new SisEdutivaEntities();
+
+        //DBCONTEXT
+        private SisEdutivaEntities1 db = new SisEdutivaEntities1();
+
         Registro nuevoRegistro;
-        List<ActivaEvaluacion> olistapersonas;
+        List<ActivaEvaluacionCRUD> olistapersonas;
+
+
+
         public ActionResult Index()
         {
             return View();
@@ -47,12 +58,13 @@ namespace Proyecto2Demo.Controllers
             }
         }
 
+
         public JsonResult Listar()
         {
-            List<ActivaEvaluacion> obdata = new List<ActivaEvaluacion>();
-            using (SisEdutivaEntities db = new SisEdutivaEntities())
+            List<ActivaEvaluacionCRUD> obdata = new List<ActivaEvaluacionCRUD>();
+            using (SisEdutivaEntities1 db = new SisEdutivaEntities1())
             {
-                obdata = (from p in db.ActivaEvaluacion
+                obdata = (from p in db.ActivaEvaluacionCRUD
                           select p).ToList();
             }
             return Json(new { data = obdata }, JsonRequestBehavior.AllowGet);
@@ -80,23 +92,36 @@ namespace Proyecto2Demo.Controllers
         //}
 
         [HttpPost]
-        public JsonResult InsertarDato(string ntCredito)
+        public JsonResult InsertarDato(string btnNota, string btnActivo, string btnProceso, string btnUsuario, string btnVisible)
         {
             try
             {
-                using (SisEdutivaEntities db = new SisEdutivaEntities())
+                using (SisEdutivaEntities1 db = new SisEdutivaEntities1())
                 {
                     DateTime dt = DateTime.Now;
 
-                    // Crear un objeto ActivaEvaluacion y establecer sus propiedades
-                    ActivaEvaluacion dr = new ActivaEvaluacion
+                    var fla1 = false;
+                    var fla2 = false;
+
+                    if (btnActivo == "1")
                     {
-                        NotaCodigo = ntCredito,
-                        Activo = Convert.ToBoolean(ntCredito),
-                        ProcesoMatricula = Convert.ToInt32(ntCredito),
-                        IdUsuario = Convert.ToInt32(ntCredito),
+                        fla1 = true;
+                    }
+
+                    if (btnVisible == "1")
+                    {
+                        fla2 = true;
+                    }
+
+                    // Crear un objeto ActivaEvaluacion y establecer sus propiedades
+                    ActivaEvaluacionCRUD dr = new ActivaEvaluacionCRUD
+                    {
+                        NotaCodigo = btnNota,
+                        Activo = fla1,
+                        ProcesoMatricula = Convert.ToInt32(btnProceso),
+                        IdUsuario = Convert.ToInt32(btnUsuario),
                         FechaCreacion = dt,
-                        Visible = Convert.ToBoolean(ntCredito)
+                        Visible = fla2
                     };
 
                     // Llamar al procedimiento almacenado mediante Entity Framework
@@ -118,7 +143,60 @@ namespace Proyecto2Demo.Controllers
             }
         }
 
+        //DBCONTEXT db
 
+        [HttpPost]
+        public ActionResult Actualizar(ActivaEvaluacionCRUD modelo)
+        {
+            if (ModelState.IsValid)
+            {
+                // Obtener el objeto existente desde la base de datos
+                var entidadExistente = db.ActivaEvaluacionCRUD.Find(modelo.IdActiva);
+
+                if (entidadExistente != null)
+                {
+                    // Actualizar propiedades con los nuevos valores
+                    entidadExistente.NotaCodigo = modelo.NotaCodigo;
+                    entidadExistente.Activo = modelo.Activo;
+                    entidadExistente.ProcesoMatricula = modelo.ProcesoMatricula;
+                    entidadExistente.IdUsuario = modelo.IdUsuario;
+                    entidadExistente.Visible = modelo.Visible;
+
+                    // Guardar cambios en la base de datos
+                    db.SaveChanges();
+
+                    return Json(new { success = true, message = "Datos Actualizados correctamente a la tabla." });
+                }
+                else
+                {
+                    // Manejar el caso en que la entidad no existe
+                    return Json(new { success = false, error = "La entidad no existe." });
+                }
+            }
+
+            // Manejar errores de validación si es necesario
+            return Json(new { success = false, errors = ModelState.Values.SelectMany(v => v.Errors).Select(e => e.ErrorMessage) });
+        }
+
+
+        //METODO GET QUE A LA HORA DE HACER CLICK ME TRAIGA LOS DATOS
+        [HttpGet]
+        public ActionResult ObtenerDatos(int idActiva)
+        {
+            // Obtener datos del registro con el IdActiva proporcionado
+            var datos = db.ActivaEvaluacionCRUD.Find(idActiva);
+
+            if (datos != null)
+            {
+                // Devolver los datos como JSON
+                return Json(datos, JsonRequestBehavior.AllowGet);
+            }
+            else
+            {
+                // Manejar el caso en que el registro no existe
+                return HttpNotFound("El registro no fue encontrado");
+            }
+        }
     }
 
 }

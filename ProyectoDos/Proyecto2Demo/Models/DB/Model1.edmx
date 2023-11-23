@@ -4,65 +4,69 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-    <Schema Namespace="SisEdutivaModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
-        <!--Errores durante la generación:
-advertencia 6002: La tabla o vista 'SisEdutiva.dbo.ActivaEvaluacion' no tiene definida ninguna clave principal. Se ha inferido la clave y la definición se creado como una vista o tabla de solo lectura.-->
-        <EntityType Name="ActivaEvaluacion">
+      <Schema Namespace="SisEdutivaModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="ActivaEvaluacionCRUD">
           <Key>
-            <PropertyRef Name="NotaCodigo" />
-            <PropertyRef Name="Activo" />
+            <PropertyRef Name="IdActiva" />
           </Key>
-          <Property Name="NotaCodigo" Type="varchar" MaxLength="50" Nullable="false" />
-          <Property Name="Activo" Type="bit" Nullable="false" />
+          <Property Name="IdActiva" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="NotaCodigo" Type="nvarchar" MaxLength="255" />
+          <Property Name="Activo" Type="bit" />
           <Property Name="ProcesoMatricula" Type="int" />
           <Property Name="IdUsuario" Type="int" />
           <Property Name="FechaCreacion" Type="datetime" />
           <Property Name="Visible" Type="bit" />
         </EntityType>
+        <Function Name="ActualizarActivaEvaluacion" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="IdActiva" Type="int" Mode="In" />
+          <Parameter Name="NotaCodigo" Type="nvarchar" Mode="In" />
+          <Parameter Name="Activo" Type="bit" Mode="In" />
+          <Parameter Name="ProcesoMatricula" Type="int" Mode="In" />
+          <Parameter Name="IdUsuario" Type="int" Mode="In" />
+          <Parameter Name="Visible" Type="bit" Mode="In" />
+        </Function>
         <Function Name="sp_RegistrarRegistro22" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="NotaCodigo" Type="nvarchar" Mode="In" />
           <Parameter Name="Activo" Type="bit" Mode="In" />
           <Parameter Name="ProcesoMatricula" Type="int" Mode="In" />
           <Parameter Name="IdUsuario" Type="int" Mode="In" />
-          <Parameter Name="FechaCreacion" Type="datetime" Mode="In" />
           <Parameter Name="Visible" Type="bit" Mode="In" />
         </Function>
         <EntityContainer Name="SisEdutivaModelStoreContainer">
-          <EntitySet Name="ActivaEvaluacion" EntityType="Self.ActivaEvaluacion" store:Type="Tables" store:Schema="dbo">
-            <DefiningQuery>SELECT 
-    [ActivaEvaluacion].[NotaCodigo] AS [NotaCodigo], 
-    [ActivaEvaluacion].[Activo] AS [Activo], 
-    [ActivaEvaluacion].[ProcesoMatricula] AS [ProcesoMatricula], 
-    [ActivaEvaluacion].[IdUsuario] AS [IdUsuario], 
-    [ActivaEvaluacion].[FechaCreacion] AS [FechaCreacion], 
-    [ActivaEvaluacion].[Visible] AS [Visible]
-    FROM [dbo].[ActivaEvaluacion] AS [ActivaEvaluacion]</DefiningQuery>
-          </EntitySet>
+          <EntitySet Name="ActivaEvaluacionCRUD" EntityType="Self.ActivaEvaluacionCRUD" Schema="dbo" store:Type="Tables" />
         </EntityContainer>
-      </Schema></edmx:StorageModels>
+      </Schema>
+    </edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="SisEdutivaModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
-        <EntityType Name="ActivaEvaluacion">
+        <EntityType Name="ActivaEvaluacionCRUD">
           <Key>
-            <PropertyRef Name="NotaCodigo" />
-            <PropertyRef Name="Activo" />
+            <PropertyRef Name="IdActiva" />
           </Key>
-          <Property Name="NotaCodigo" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="Activo" Type="Boolean" Nullable="false" />
+          <Property Name="IdActiva" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="NotaCodigo" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="Activo" Type="Boolean" />
           <Property Name="ProcesoMatricula" Type="Int32" />
           <Property Name="IdUsuario" Type="Int32" />
           <Property Name="FechaCreacion" Type="DateTime" Precision="3" />
           <Property Name="Visible" Type="Boolean" />
         </EntityType>
-        <EntityContainer Name="SisEdutivaEntities" annotation:LazyLoadingEnabled="true">
-          <EntitySet Name="ActivaEvaluacion" EntityType="Self.ActivaEvaluacion" />
+        <EntityContainer Name="SisEdutivaEntities1" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="ActivaEvaluacionCRUD" EntityType="Self.ActivaEvaluacionCRUD" />
+          <FunctionImport Name="ActualizarActivaEvaluacion">
+            <Parameter Name="IdActiva" Mode="In" Type="Int32" />
+            <Parameter Name="NotaCodigo" Mode="In" Type="String" />
+            <Parameter Name="Activo" Mode="In" Type="Boolean" />
+            <Parameter Name="ProcesoMatricula" Mode="In" Type="Int32" />
+            <Parameter Name="IdUsuario" Mode="In" Type="Int32" />
+            <Parameter Name="Visible" Mode="In" Type="Boolean" />
+          </FunctionImport>
           <FunctionImport Name="sp_RegistrarRegistro22">
             <Parameter Name="NotaCodigo" Mode="In" Type="String" />
             <Parameter Name="Activo" Mode="In" Type="Boolean" />
             <Parameter Name="ProcesoMatricula" Mode="In" Type="Int32" />
             <Parameter Name="IdUsuario" Mode="In" Type="Int32" />
-            <Parameter Name="FechaCreacion" Mode="In" Type="DateTime" />
             <Parameter Name="Visible" Mode="In" Type="Boolean" />
           </FunctionImport>
         </EntityContainer>
@@ -71,10 +75,11 @@ advertencia 6002: La tabla o vista 'SisEdutiva.dbo.ActivaEvaluacion' no tiene de
     <!-- C-S mapping content -->
     <edmx:Mappings>
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
-        <EntityContainerMapping StorageEntityContainer="SisEdutivaModelStoreContainer" CdmEntityContainer="SisEdutivaEntities">
-          <EntitySetMapping Name="ActivaEvaluacion">
-            <EntityTypeMapping TypeName="SisEdutivaModel.ActivaEvaluacion">
-              <MappingFragment StoreEntitySet="ActivaEvaluacion">
+        <EntityContainerMapping StorageEntityContainer="SisEdutivaModelStoreContainer" CdmEntityContainer="SisEdutivaEntities1">
+          <EntitySetMapping Name="ActivaEvaluacionCRUD">
+            <EntityTypeMapping TypeName="SisEdutivaModel.ActivaEvaluacionCRUD">
+              <MappingFragment StoreEntitySet="ActivaEvaluacionCRUD">
+                <ScalarProperty Name="IdActiva" ColumnName="IdActiva" />
                 <ScalarProperty Name="NotaCodigo" ColumnName="NotaCodigo" />
                 <ScalarProperty Name="Activo" ColumnName="Activo" />
                 <ScalarProperty Name="ProcesoMatricula" ColumnName="ProcesoMatricula" />
@@ -84,6 +89,7 @@ advertencia 6002: La tabla o vista 'SisEdutiva.dbo.ActivaEvaluacion' no tiene de
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <FunctionImportMapping FunctionImportName="ActualizarActivaEvaluacion" FunctionName="SisEdutivaModel.Store.ActualizarActivaEvaluacion" />
           <FunctionImportMapping FunctionImportName="sp_RegistrarRegistro22" FunctionName="SisEdutivaModel.Store.sp_RegistrarRegistro22" />
         </EntityContainerMapping>
       </Mapping>

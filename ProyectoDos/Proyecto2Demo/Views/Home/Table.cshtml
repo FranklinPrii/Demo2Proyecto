@@ -10,27 +10,36 @@
     <div class="row m-4">
         <div class="col">
             <label class="form-label">Nota de credito</label>
-            <input type="text" class="form-control" name="ntCredito" value="" id="btnNota"/>
+            <input type="text" class="form-control" name="btnNota" value="" id="btnNota" />
 
             <label class="form-label">Activo</label>
-            <input type="text" class="form-control" name="name" value="" id="btnActivo"/>
+            <input type="text" class="form-control" name="btnActivo" value="" id="btnActivo" />
 
             <label class="form-label">Proceso Matricula</label>
-            <input type="text" class="form-control" name="name" value="" id="btnProceso"/>
+            <input type="text" class="form-control" name="btnProceso" value="" id="btnProceso" />
 
             <label class="form-label">IdUsuario</label>
-            <input type="text" class="form-control" name="name" value="" id="btnUsuario" />
+            <input type="text" class="form-control" name="btnUsuario" value="" id="btnUsuario" />
 
             <label class="form-label">Visible</label>
-            <input type="text" class="form-control" name="name" value="" id="btnVisible"/>
+            <input type="text" class="form-control" name="btnVisible" value="" id="btnVisible" />
             <br />
 
 
-            <button type="button" id="btnInsertar" class="btn btn-success">Insertar</button><br /> <br />
+            <button type="button" id="btnInsertar" class="btn btn-success col-sm-1"><i class="fa-sharp fa-light fa-pen-to-square"></i>&nbsp;Insertar</button><br /> <br />
+
+            @*<button type="button" id="btn-actualizar" class="btn btn-primary col-sm-1">Actualizar</button><br /> <br />*@
+
+            
+
+            
             @*<input type="text" id="txtDato" name="txtDato" />*@
+
+
+
         </div>
-        
-        
+
+
     </div>
 </form>
 
@@ -50,6 +59,7 @@
                             <th>Proceso Matricula</th>
                             <th>IdUsuario</th>
                             <th>Visible</th>
+                            <th>Administrador</th>
                         </tr>
                     </thead>
                 </table>
@@ -57,6 +67,7 @@
         </div>
     </div>
 </div>
+
 
 @section scripts{
     <script>
@@ -73,34 +84,47 @@
                     { "data": "ProcesoMatricula" },
                     { "data": "IdUsuario" },
                     { "data": "Visible" },
+                    {
+                        "data": function () {
+                            return '<button value="Actualizar"  title="Actualizar" class="btn btn-primary"><i class="fa-sharp fa-light fa-pen-to-square"></i></button>&nbsp;&nbsp;&nbsp;' +
+                                '<button value="Eliminar" title="Eliminar" class="btn btn-danger "><i class="fa-solid fa-trash"></i></button>';
+                        }
+                            
+                    },
+                    
                 ]
+
+
         });
+            
+ });
 
- });    
-
-    </script> 
+    </script>
 
     <script>
         $(document).ready(function () {
             $("#btnInsertar").click(function () {
 
-                
+
                 // Obtener el valor del input
-                var ntCredito = $("#ntCredito").val();
-                var ntCredito = $("#btnActivo").val();
-                var ntCredito = $("#btnProceso").val();
-                var ntCredito = $("#btnUsuario").val();
-                var ntCredito = $("#btnVisible").val();
-                //alert(ntCredito);
-                //return;
-                
+                var btnNota = $("#btnNota").val();
+                var btnActivo = $("#btnActivo").val();
+                var btnProceso = $("#btnProceso").val();
+                var btnUsuario = $("#btnUsuario").val();
+                var btnVisible = $("#btnVisible").val();
+
+
 
                 // Realizar la solicitud AJAX
                 $.ajax({
                     url: "@Url.Action("InsertarDato", "Home")", // Ruta al método del controlador
                     type: "POST",
                     data: {
-                        ntCredito: ntCredito
+                        btnNota: btnNota,
+                        btnActivo: btnActivo,
+                        btnProceso: btnProceso,
+                        btnUsuario: btnUsuario,
+                        btnVisible: btnVisible
                     },
                     success: function (response) {
                         console.log(response);
@@ -109,7 +133,7 @@
                         //    alert(response.message);
                         //} else {
                         //    alert("Error: " + response.message);
-                            
+
                         //}
                     },
                     error: function (error) {
@@ -121,6 +145,85 @@
 
     </script>
 
+    <script>
+    $(document).ready(function () {
+        $("#btn-actualizar").click(function () {
 
-   
-    }
+            // Obtener los datos del formulario
+            // Obtener el valor del input
+            var btnNota = $("#btnNota").serialize();
+            var btnActivo = $("#btnActivo").serialize();
+            var btnProceso = $("#btnProceso").serialize();
+            var btnUsuario = $("#btnUsuario").serialize();
+            var btnVisible = $("#btnVisible").serialize();
+
+            // Realizar la petición AJAX para actualizar
+            $.ajax({
+                type: "POST",
+                url: "@Url.Action("Actualizar", "Home")",
+                data: {
+                    btnNota: btnNota,
+                    btnActivo: btnActivo,
+                    btnProceso: btnProceso,
+                    btnUsuario: btnUsuario,
+                    btnVisible: btnVisible
+                },
+                success: function (result) {
+                    if (result.success) {
+                        // Manejar el éxito, por ejemplo, redireccionar a la página de detalles
+                        window.location.href = "@Url.Action("Table", "Home")";
+                    } else {
+                        // Manejar errores de validación si es necesario
+                        console.error("Error al actualizar:", result.errors);
+                    }
+                },
+                error: function (error) {
+                    // Manejar el error
+                    console.error("Error al actualizar:", error);
+                }
+            });
+        });
+    });
+    </script>
+
+    <script>
+        $(document).ready(function () {
+            $("#btnCargarDatos").click(function () {
+                // Obtener el IdActiva o identificador único del registro a cargar
+                var idActiva = obtenerIdActiva(); // Debes implementar la lógica para obtener el IdActiva
+
+                // Realizar la solicitud AJAX para obtener los datos del servidor
+                $.ajax({
+                    type: "GET",
+                    url: "/Home/ObtenerDatos/" + idActiva, // Ajusta la ruta de la acción en tu controlador
+                    success: function (data) {
+                        // Llenar el formulario con los datos obtenidos
+                        llenarFormulario(data);
+                    },
+                    error: function (error) {
+                        console.error("Error al cargar datos:", error);
+                    }
+                });
+            });
+
+            function llenarFormulario(data) {
+                // Aquí debes implementar la lógica para llenar tu formulario con los datos obtenidos
+                // Por ejemplo, asignar valores a los campos del formulario
+                $("#btnNota").val(data.btnNota);
+                $("#btnActivo").val(data.btnActivo);
+                $("#btnProceso").val(data.btnProceso);
+                $("#btnUsuario").val(data.btnUsuario);
+                $("#btnVisible").val(data.btnVisible);
+                // ... y así sucesivamente
+            }
+
+            function obtenerIdActiva() {
+                // Aquí debes implementar la lógica para obtener el IdActiva
+                // Puede ser desde un campo en la página o algún otro método
+                return 1; // Ejemplo, debes ajustar según tu lógica
+            }
+        });
+    </script>
+
+
+}

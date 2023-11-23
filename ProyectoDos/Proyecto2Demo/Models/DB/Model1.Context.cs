@@ -15,10 +15,10 @@ namespace Proyecto2Demo.Models.DB
     using System.Data.Entity.Core.Objects;
     using System.Linq;
     
-    public partial class SisEdutivaEntities : DbContext
+    public partial class SisEdutivaEntities1 : DbContext
     {
-        public SisEdutivaEntities()
-            : base("name=SisEdutivaEntities")
+        public SisEdutivaEntities1()
+            : base("name=SisEdutivaEntities1")
         {
         }
     
@@ -27,7 +27,40 @@ namespace Proyecto2Demo.Models.DB
             throw new UnintentionalCodeFirstException();
         }
     
-        public virtual DbSet<ActivaEvaluacion> ActivaEvaluacion { get; set; }
+        public virtual DbSet<ActivaEvaluacionCRUD> ActivaEvaluacionCRUD { get; set; }
+    
+        public virtual int ActualizarActivaEvaluacion(Nullable<int> idActiva, string notaCodigo, Nullable<bool> activo, Nullable<int> procesoMatricula, Nullable<int> idUsuario, Nullable<System.DateTime> fechaCreacion, Nullable<bool> visible)
+        {
+            var idActivaParameter = idActiva.HasValue ?
+                new ObjectParameter("IdActiva", idActiva) :
+                new ObjectParameter("IdActiva", typeof(int));
+    
+            var notaCodigoParameter = notaCodigo != null ?
+                new ObjectParameter("NotaCodigo", notaCodigo) :
+                new ObjectParameter("NotaCodigo", typeof(string));
+    
+            var activoParameter = activo.HasValue ?
+                new ObjectParameter("Activo", activo) :
+                new ObjectParameter("Activo", typeof(bool));
+    
+            var procesoMatriculaParameter = procesoMatricula.HasValue ?
+                new ObjectParameter("ProcesoMatricula", procesoMatricula) :
+                new ObjectParameter("ProcesoMatricula", typeof(int));
+    
+            var idUsuarioParameter = idUsuario.HasValue ?
+                new ObjectParameter("IdUsuario", idUsuario) :
+                new ObjectParameter("IdUsuario", typeof(int));
+
+            var fechaCreacionParameter = fechaCreacion.HasValue ?
+               new ObjectParameter("FechaCreacion", fechaCreacion) :
+               new ObjectParameter("FechaCreacion", typeof(System.DateTime));
+
+            var visibleParameter = visible.HasValue ?
+                new ObjectParameter("Visible", visible) :
+                new ObjectParameter("Visible", typeof(bool));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("ActualizarActivaEvaluacion", idActivaParameter, notaCodigoParameter, activoParameter, procesoMatriculaParameter, idUsuarioParameter, visibleParameter);
+        }
     
         public virtual int sp_RegistrarRegistro22(string notaCodigo, Nullable<bool> activo, Nullable<int> procesoMatricula, Nullable<int> idUsuario, Nullable<System.DateTime> fechaCreacion, Nullable<bool> visible)
         {
@@ -46,16 +79,19 @@ namespace Proyecto2Demo.Models.DB
             var idUsuarioParameter = idUsuario.HasValue ?
                 new ObjectParameter("IdUsuario", idUsuario) :
                 new ObjectParameter("IdUsuario", typeof(int));
-    
+
             var fechaCreacionParameter = fechaCreacion.HasValue ?
-                new ObjectParameter("FechaCreacion", fechaCreacion) :
-                new ObjectParameter("FechaCreacion", typeof(System.DateTime));
-    
+               new ObjectParameter("FechaCreacion", fechaCreacion) :
+               new ObjectParameter("FechaCreacion", typeof(System.DateTime));
+
             var visibleParameter = visible.HasValue ?
                 new ObjectParameter("Visible", visible) :
                 new ObjectParameter("Visible", typeof(bool));
     
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("sp_RegistrarRegistro22", notaCodigoParameter, activoParameter, procesoMatriculaParameter, idUsuarioParameter, fechaCreacionParameter, visibleParameter);
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("sp_RegistrarRegistro22", notaCodigoParameter, activoParameter, procesoMatriculaParameter, idUsuarioParameter, visibleParameter);
         }
+
+        
+        
     }
 }

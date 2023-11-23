@@ -1,9 +1,10 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
-  <EntityContainerMapping StorageEntityContainer="SisEdutivaModelStoreContainer" CdmEntityContainer="SisEdutivaEntities">
-    <EntitySetMapping Name="ActivaEvaluacion">
-      <EntityTypeMapping TypeName="SisEdutivaModel.ActivaEvaluacion">
-        <MappingFragment StoreEntitySet="ActivaEvaluacion">
+  <EntityContainerMapping StorageEntityContainer="SisEdutivaModelStoreContainer" CdmEntityContainer="SisEdutivaEntities1">
+    <EntitySetMapping Name="ActivaEvaluacionCRUD">
+      <EntityTypeMapping TypeName="SisEdutivaModel.ActivaEvaluacionCRUD">
+        <MappingFragment StoreEntitySet="ActivaEvaluacionCRUD">
+          <ScalarProperty Name="IdActiva" ColumnName="IdActiva" />
           <ScalarProperty Name="NotaCodigo" ColumnName="NotaCodigo" />
           <ScalarProperty Name="Activo" ColumnName="Activo" />
           <ScalarProperty Name="ProcesoMatricula" ColumnName="ProcesoMatricula" />
@@ -13,6 +14,7 @@
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
+    <FunctionImportMapping FunctionImportName="ActualizarActivaEvaluacion" FunctionName="SisEdutivaModel.Store.ActualizarActivaEvaluacion" />
     <FunctionImportMapping FunctionImportName="sp_RegistrarRegistro22" FunctionName="SisEdutivaModel.Store.sp_RegistrarRegistro22" />
   </EntityContainerMapping>
 </Mapping>

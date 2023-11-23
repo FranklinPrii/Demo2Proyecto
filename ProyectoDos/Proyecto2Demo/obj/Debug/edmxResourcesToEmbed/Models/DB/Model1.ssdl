@@ -1,37 +1,33 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Schema Namespace="SisEdutivaModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
-  <!--Errores durante la generación:
-advertencia 6002: La tabla o vista 'SisEdutiva.dbo.ActivaEvaluacion' no tiene definida ninguna clave principal. Se ha inferido la clave y la definición se creado como una vista o tabla de solo lectura.-->
-  <EntityType Name="ActivaEvaluacion">
+  <EntityType Name="ActivaEvaluacionCRUD">
     <Key>
-      <PropertyRef Name="NotaCodigo" />
-      <PropertyRef Name="Activo" />
+      <PropertyRef Name="IdActiva" />
     </Key>
-    <Property Name="NotaCodigo" Type="varchar" MaxLength="50" Nullable="false" />
-    <Property Name="Activo" Type="bit" Nullable="false" />
+    <Property Name="IdActiva" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="NotaCodigo" Type="nvarchar" MaxLength="255" />
+    <Property Name="Activo" Type="bit" />
     <Property Name="ProcesoMatricula" Type="int" />
     <Property Name="IdUsuario" Type="int" />
     <Property Name="FechaCreacion" Type="datetime" />
     <Property Name="Visible" Type="bit" />
   </EntityType>
+  <Function Name="ActualizarActivaEvaluacion" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="IdActiva" Type="int" Mode="In" />
+    <Parameter Name="NotaCodigo" Type="nvarchar" Mode="In" />
+    <Parameter Name="Activo" Type="bit" Mode="In" />
+    <Parameter Name="ProcesoMatricula" Type="int" Mode="In" />
+    <Parameter Name="IdUsuario" Type="int" Mode="In" />
+    <Parameter Name="Visible" Type="bit" Mode="In" />
+  </Function>
   <Function Name="sp_RegistrarRegistro22" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
     <Parameter Name="NotaCodigo" Type="nvarchar" Mode="In" />
     <Parameter Name="Activo" Type="bit" Mode="In" />
     <Parameter Name="ProcesoMatricula" Type="int" Mode="In" />
     <Parameter Name="IdUsuario" Type="int" Mode="In" />
-    <Parameter Name="FechaCreacion" Type="datetime" Mode="In" />
     <Parameter Name="Visible" Type="bit" Mode="In" />
   </Function>
   <EntityContainer Name="SisEdutivaModelStoreContainer">
-    <EntitySet Name="ActivaEvaluacion" EntityType="Self.ActivaEvaluacion" store:Type="Tables" store:Schema="dbo">
-      <DefiningQuery>SELECT 
-    [ActivaEvaluacion].[NotaCodigo] AS [NotaCodigo], 
-    [ActivaEvaluacion].[Activo] AS [Activo], 
-    [ActivaEvaluacion].[ProcesoMatricula] AS [ProcesoMatricula], 
-    [ActivaEvaluacion].[IdUsuario] AS [IdUsuario], 
-    [ActivaEvaluacion].[FechaCreacion] AS [FechaCreacion], 
-    [ActivaEvaluacion].[Visible] AS [Visible]
-    FROM [dbo].[ActivaEvaluacion] AS [ActivaEvaluacion]</DefiningQuery>
-    </EntitySet>
+    <EntitySet Name="ActivaEvaluacionCRUD" EntityType="Self.ActivaEvaluacionCRUD" Schema="dbo" store:Type="Tables" />
   </EntityContainer>
 </Schema>

@@ -348,3 +348,4 @@ D:\ACTUALIZAR\Demo2Proyecto\ProyectoDos\Proyecto2Demo\obj\Debug\Proyecto2Demo.cs
 D:\ACTUALIZAR\Demo2Proyecto\ProyectoDos\Proyecto2Demo\obj\Debug\Proyecto2Demo.csproj.CopyComplete
 D:\ACTUALIZAR\Demo2Proyecto\ProyectoDos\Proyecto2Demo\obj\Debug\Proyecto2Demo.dll
 D:\ACTUALIZAR\Demo2Proyecto\ProyectoDos\Proyecto2Demo\obj\Debug\Proyecto2Demo.pdb
+D:\ACTUALIZAR\Demo2Proyecto\ProyectoDos\Proyecto2Demo\obj\Debug\Proyecto2Demo.csproj.AssemblyReference.cache

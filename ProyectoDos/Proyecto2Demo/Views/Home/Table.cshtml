@@ -159,7 +159,7 @@
 
     <script>
 
-        var table;
+        var table, data;
 
                      $(document).ready(function () {
                          table = $('#table').DataTable({
@@ -243,17 +243,30 @@
     <script>
 
         $(document).on('click', '.btn-edit', function () {
+         
             var data = table.row($(this).closest('tr')).data();
-            FillModalData(table);
+            console.log(data.NotaCodigo);
+
+            $("#txtNotaCodigo").val(data.NotaCodigo);
+            $("#txtActivo").val(data.Activo);
+            $("#txtProcesoMatricula").val(data.ProcesoMatricula);
+            $("#txtIdUsuario").val(data.IdUsuario);
+            $("#txtFechaCreacion").val(data.FechaCreacion);
+            $("#txtVisible").val(data.Visible);
+            
         });
     </script>
 
-    <script>
-        function FillModalData() {
 
+
+    @*Cargar datos en el modal*@
+    @*<script>
+        function FillModalData() {
+            $("#txtNotaCodigo").val(data[0]);
+            $("#txtActivo").val(data[1]);
         }
 
-    </script>
+    </script>*@
 
 }
 

@@ -70,26 +70,7 @@ namespace Proyecto2Demo.Controllers
             return Json(new { data = obdata }, JsonRequestBehavior.AllowGet);
         }
 
-        //public JsonResult agregar(string Evaluacion)
-        //{
-
-        //    using (SisEdutivaEntities db = new SisEdutivaEntities())
-        //    {
-        //        var ActivaEvaluacion = new ActivaEvaluacion();
-
-        //        ActivaEvaluacion.NotaCodigo = Evaluacion;
-        //        ActivaEvaluacion.Activo = bool.Parse(Evaluacion);
-        //        ActivaEvaluacion.ProcesoMatricula = int.Parse(Evaluacion);
-        //        ActivaEvaluacion.IdUsuario = int.Parse(Evaluacion);
-        //        ActivaEvaluacion.Visible = bool.Parse(Evaluacion);
-
-        //        db.ActivaEvaluacion.Add(ActivaEvaluacion);
-        //        db.SaveChanges();                                                                                                                                               
-
-        //    }
-
-        //    return Json(1, JsonRequestBehavior.AllowGet);
-        //}
+        
 
         [HttpPost]
         public JsonResult InsertarDato(string btnNota, string btnActivo, string btnProceso, string btnUsuario, string btnVisible)

@@ -259,7 +259,6 @@ D:\CLONACIONDOS\Demo2Proyecto\ProyectoDos\Proyecto2Demo\obj\Debug\Proyecto2Demo.
 D:\CLONACIONDOS\Demo2Proyecto\ProyectoDos\Proyecto2Demo\obj\Debug\Proyecto2Demo.dll
 D:\CLONACIONDOS\Demo2Proyecto\ProyectoDos\Proyecto2Demo\obj\Debug\Proyecto2Demo.pdb
 D:\CLONACIONDOS\Demo2Proyecto\ProyectoDos\Proyecto2Demo\obj\Debug\Proyecto2Demo.csproj.AssemblyReference.cache
-D:\ACTUALIZAR\Demo2Proyecto\ProyectoDos\Proyecto2Demo\obj\Debug\Proyecto2Demo.csproj.CoreCompileInputs.cache
 D:\ACTUALIZAR\Demo2Proyecto\ProyectoDos\Proyecto2Demo\bin\Proyecto2Demo.dll.config
 D:\ACTUALIZAR\Demo2Proyecto\ProyectoDos\Proyecto2Demo\bin\Proyecto2Demo.dll
 D:\ACTUALIZAR\Demo2Proyecto\ProyectoDos\Proyecto2Demo\bin\Proyecto2Demo.pdb
@@ -345,6 +344,7 @@ D:\ACTUALIZAR\Demo2Proyecto\ProyectoDos\Proyecto2Demo\bin\es\System.Web.Razor.re
 D:\ACTUALIZAR\Demo2Proyecto\ProyectoDos\Proyecto2Demo\bin\es\System.Web.WebPages.resources.dll
 D:\ACTUALIZAR\Demo2Proyecto\ProyectoDos\Proyecto2Demo\bin\es\System.Web.WebPages.Deployment.resources.dll
 D:\ACTUALIZAR\Demo2Proyecto\ProyectoDos\Proyecto2Demo\bin\es\System.Web.WebPages.Razor.resources.dll
+D:\ACTUALIZAR\Demo2Proyecto\ProyectoDos\Proyecto2Demo\obj\Debug\Proyecto2Demo.csproj.CoreCompileInputs.cache
 D:\ACTUALIZAR\Demo2Proyecto\ProyectoDos\Proyecto2Demo\obj\Debug\Proyecto2Demo.csproj.CopyComplete
 D:\ACTUALIZAR\Demo2Proyecto\ProyectoDos\Proyecto2Demo\obj\Debug\Proyecto2Demo.dll
 D:\ACTUALIZAR\Demo2Proyecto\ProyectoDos\Proyecto2Demo\obj\Debug\Proyecto2Demo.pdb

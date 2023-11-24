@@ -4,11 +4,95 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
+
 <h2>Table</h2>
+
+
+<!-- The Modal -->
+<div class="modal" id="myModal">
+    <div class="modal-dialog">
+        <div class="modal-content">
+
+            <!-- Modal Header -->
+            <div class="modal-header">
+                <button type="button" class="btn btn-success close" data-bs-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="myModalLabel">Actualizar registro</h4>
+
+            </div>
+            <div class="modal-body">
+
+                <div class="form-group">
+                    <label>NotaCodigo</label>
+                </div>
+                <div class="form-group">
+
+                    <input id="txtNotaCodigo" runat="server" class="form-control" />
+
+                </div>
+
+                <div class="form-group">
+                    <label>Activo</label>
+                </div>
+                <div class="form-group">
+
+                    <input id="txtActivo" runat="server" class="form-control" />
+
+                </div>
+
+                <div class="form-group">
+                    <label>ProcesoMatricula</label>
+                </div>
+                <div class="form-group">
+
+                    <input id="txtProcesoMatricula" runat="server" class="form-control" />
+
+                </div>
+
+
+                <div class="form-group">
+                    <label>IdUsuario</label>
+                </div>
+                <div class="form-group">
+
+                    <input id="txtIdUsuario" runat="server" class="form-control" />
+
+                </div>
+
+                <div class="form-group">
+                    <label>FechaCreacion</label>
+                </div>
+                <div class="form-group">
+
+                    <input id="txtFechaCreacion" runat="server" class="form-control" />
+
+                </div>
+
+
+                <div class="form-group">
+                    <label>Visible</label>
+                </div>
+                <div class="form-group">
+
+                    <input id="txtVisible" runat="server" class="form-control" />
+
+                </div>
+
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary" id="btnactualizar">Actualizar</button>
+                <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Cerrar</button>
+            </div>
+                
+        </div>
+    </div>
+</div>
+
+
 
 <form>
     <div class="row m-4">
         <div class="col">
+
             <label class="form-label">Nota de credito</label>
             <input type="text" class="form-control" name="btnNota" value="" id="btnNota" />
 
@@ -27,21 +111,18 @@
 
 
             <button type="button" id="btnInsertar" class="btn btn-success col-sm-1"><i class="fa-sharp fa-light fa-pen-to-square"></i>&nbsp;Insertar</button><br /> <br />
-
-            @*<button type="button" id="btn-actualizar" class="btn btn-primary col-sm-1">Actualizar</button><br /> <br />*@
-
-            
-
-            
-            @*<input type="text" id="txtDato" name="txtDato" />*@
-
-
-
         </div>
-
-
     </div>
+
+
+
+
+
 </form>
+
+
+
+
 
 
 <div class="row m-4">
@@ -54,6 +135,7 @@
                 <table id="table" class="table">
                     <thead>
                         <tr>
+                            <th>IdActivo</th>
                             <th>Nota de Credito</th>
                             <th>Activo</th>
                             <th>Proceso Matricula</th>
@@ -69,161 +151,115 @@
 </div>
 
 
+
+@*POR CORREGIR*@
+
+
 @section scripts{
+
     <script>
-        $(document).ready(function () {
-            $('#table').DataTable({
-                "ajax": {
-                    "url": "@Url.Action("Listar","Home")",
-                    "type": "GET",
-                    "dataType": "json"
-                },
-                "columns": [
-                    { "data": "NotaCodigo" },
-                    { "data": "Activo" },
-                    { "data": "ProcesoMatricula" },
-                    { "data": "IdUsuario" },
-                    { "data": "Visible" },
-                    {
-                        "data": function () {
-                            return '<button value="Actualizar"  title="Actualizar" class="btn btn-primary"><i class="fa-sharp fa-light fa-pen-to-square"></i></button>&nbsp;&nbsp;&nbsp;' +
-                                '<button value="Eliminar" title="Eliminar" class="btn btn-danger "><i class="fa-solid fa-trash"></i></button>';
-                        }
-                            
-                    },
-                    
-                ]
+
+        var table;
+
+                     $(document).ready(function () {
+                         table = $('#table').DataTable({
+                            "ajax": {
+                                "url":"@Url.Action("Listar", "Home")",
+                                "type": "GET",
+                                "dataType": "json"
+                            },
+                            "columns": [
+                                { "data": "IdActiva" },
+                                { "data": "NotaCodigo" },
+                                { "data": "Activo" },
+                                { "data": "ProcesoMatricula" },
+                                { "data": "IdUsuario" },
+                                { "data": "Visible" },
+                                {
+                                    "data": function () {
+                                        return '<button   value="Actualizar"  title="Actualizar" class="btn btn-primary btn-edit"   data-bs-toggle="modal" data-bs-target="#myModal"><i class="fa-sharp fa-light fa-pen-to-square"></i></button>&nbsp;&nbsp;&nbsp;' +
+                                            '<button value="Eliminar" title="Eliminar" class="btn btn-danger "><i class="fa-solid fa-trash"></i></button>';
+                                    }
+
+                                },
+
+                            ]
 
 
-        });
-            
- });
+                        });
+
+                    });
+
+
 
     </script>
 
     <script>
-        $(document).ready(function () {
-            $("#btnInsertar").click(function () {
+                        $(document).ready(function () {
+                            $("#btnInsertar").click(function () {
 
 
-                // Obtener el valor del input
-                var btnNota = $("#btnNota").val();
-                var btnActivo = $("#btnActivo").val();
-                var btnProceso = $("#btnProceso").val();
-                var btnUsuario = $("#btnUsuario").val();
-                var btnVisible = $("#btnVisible").val();
+                                // Obtener el valor del input
+                                var btnNota = $("#btnNota").val();
+                                var btnActivo = $("#btnActivo").val();
+                                var btnProceso = $("#btnProceso").val();
+                                var btnUsuario = $("#btnUsuario").val();
+                                var btnVisible = $("#btnVisible").val();
 
 
 
-                // Realizar la solicitud AJAX
-                $.ajax({
-                    url: "@Url.Action("InsertarDato", "Home")", // Ruta al método del controlador
-                    type: "POST",
-                    data: {
-                        btnNota: btnNota,
-                        btnActivo: btnActivo,
-                        btnProceso: btnProceso,
-                        btnUsuario: btnUsuario,
-                        btnVisible: btnVisible
-                    },
-                    success: function (response) {
-                        console.log(response);
-                        // Manejar la respuesta del servidor
-                        //if (response.success) {
-                        //    alert(response.message);
-                        //} else {
-                        //    alert("Error: " + response.message);
+                                // Realizar la solicitud AJAX
+                                $.ajax({
+                                    url: "@Url.Action("InsertarDato", "Home")", // Ruta al método del controlador
+                                    type: "POST",
+                                    data: {
+                                        btnNota: btnNota,
+                                        btnActivo: btnActivo,
+                                        btnProceso: btnProceso,
+                                        btnUsuario: btnUsuario,
+                                        btnVisible: btnVisible
+                                    },
+                                    success: function (response) {
+                                        console.log(response);
+                                        // Manejar la respuesta del servidor
+                                        //if (response.success) {
+                                        //    alert(response.message);
+                                        //} else {
+                                        //    alert("Error: " + response.message);
 
-                        //}
-                    },
-                    error: function (error) {
-                        alert("Error en la solicitud AJAX: " + error.statusText);
-                    }
-                });
-            });
+                                        //}
+                                    },
+                                    error: function (error) {
+                                        alert("Error en la solicitud AJAX: " + error.statusText);
+                                    }
+                                });
+                            });
+                        });
+
+    </script>
+
+
+    @*Evento click para Actualizar*@
+    <script>
+
+        $(document).on('click', '.btn-edit', function () {
+            var data = table.row($(this).closest('tr')).data();
+            FillModalData(table);
         });
-
     </script>
 
     <script>
-    $(document).ready(function () {
-        $("#btn-actualizar").click(function () {
+        function FillModalData() {
 
-            // Obtener los datos del formulario
-            // Obtener el valor del input
-            var btnNota = $("#btnNota").serialize();
-            var btnActivo = $("#btnActivo").serialize();
-            var btnProceso = $("#btnProceso").serialize();
-            var btnUsuario = $("#btnUsuario").serialize();
-            var btnVisible = $("#btnVisible").serialize();
+        }
 
-            // Realizar la petición AJAX para actualizar
-            $.ajax({
-                type: "POST",
-                url: "@Url.Action("Actualizar", "Home")",
-                data: {
-                    btnNota: btnNota,
-                    btnActivo: btnActivo,
-                    btnProceso: btnProceso,
-                    btnUsuario: btnUsuario,
-                    btnVisible: btnVisible
-                },
-                success: function (result) {
-                    if (result.success) {
-                        // Manejar el éxito, por ejemplo, redireccionar a la página de detalles
-                        window.location.href = "@Url.Action("Table", "Home")";
-                    } else {
-                        // Manejar errores de validación si es necesario
-                        console.error("Error al actualizar:", result.errors);
-                    }
-                },
-                error: function (error) {
-                    // Manejar el error
-                    console.error("Error al actualizar:", error);
-                }
-            });
-        });
-    });
     </script>
-
-    <script>
-        $(document).ready(function () {
-            $("#btnCargarDatos").click(function () {
-                // Obtener el IdActiva o identificador único del registro a cargar
-                var idActiva = obtenerIdActiva(); // Debes implementar la lógica para obtener el IdActiva
-
-                // Realizar la solicitud AJAX para obtener los datos del servidor
-                $.ajax({
-                    type: "GET",
-                    url: "/Home/ObtenerDatos/" + idActiva, // Ajusta la ruta de la acción en tu controlador
-                    success: function (data) {
-                        // Llenar el formulario con los datos obtenidos
-                        llenarFormulario(data);
-                    },
-                    error: function (error) {
-                        console.error("Error al cargar datos:", error);
-                    }
-                });
-            });
-
-            function llenarFormulario(data) {
-                // Aquí debes implementar la lógica para llenar tu formulario con los datos obtenidos
-                // Por ejemplo, asignar valores a los campos del formulario
-                $("#btnNota").val(data.btnNota);
-                $("#btnActivo").val(data.btnActivo);
-                $("#btnProceso").val(data.btnProceso);
-                $("#btnUsuario").val(data.btnUsuario);
-                $("#btnVisible").val(data.btnVisible);
-                // ... y así sucesivamente
-            }
-
-            function obtenerIdActiva() {
-                // Aquí debes implementar la lógica para obtener el IdActiva
-                // Puede ser desde un campo en la página o algún otro método
-                return 1; // Ejemplo, debes ajustar según tu lógica
-            }
-        });
-    </script>
-
 
 }
+
+
+
+
+
+
+

@@ -132,7 +132,7 @@
                 Ejemplo Crud con MVC en Datable con JQUERY
             </div>
             <div class="card-body">
-                <table id="table" class="table">
+                <table id="table" class="table selected">
                     <thead>
                         <tr>
                             <th>IdActivo</th>
@@ -160,6 +160,7 @@
     <script>
 
         var table, data;
+        
 
                      $(document).ready(function () {
                          table = $('#table').DataTable({
@@ -239,36 +240,146 @@
     </script>
 
 
-    @*Evento click para Actualizar*@
-    <script>
+    @*Evento click*@
+<script>
 
         $(document).on('click', '.btn-edit', function () {
-         
-            var data = table.row($(this).closest('tr')).data();
-            console.log(data.NotaCodigo);
 
+
+            var data = table.row($(this).closest('tr')).data();
+            console.log(data.IdActiva);
+
+            $("txtIdActiva").val(data.IdActiva);
+            
             $("#txtNotaCodigo").val(data.NotaCodigo);
             $("#txtActivo").val(data.Activo);
             $("#txtProcesoMatricula").val(data.ProcesoMatricula);
             $("#txtIdUsuario").val(data.IdUsuario);
-            $("#txtFechaCreacion").val(data.FechaCreacion);
+            $("#txtFechaCreacion").val(fechaFormateada);
+            $("#txtVisible").val(data.visible);
+
+
+            var fechaMilisegundos = parseInt(data.FechaCreacion.replace("/Date(", "").replace(")/", ""), 10);
+
+            // Crea un objeto Date
+            var fecha = new Date(fechaMilisegundos);
+
+            // Ahora "fecha" contiene la fecha convertida
+
+            var fechaString = fecha;
+            var fecha = new Date(fechaString);
+
+            // Obtiene el año, mes y día de la fecha
+            var year = fecha.getFullYear();
+            var month = (fecha.getMonth() + 1).toString().padStart(2, '0'); // Agrega un cero al mes si es necesario
+            var day = fecha.getDate().toString().padStart(2, '0'); // Agrega un cero al día si es necesario
+
+            // Formatea la fecha en "año-mes-día"
+            var fechaFormateada = `${year}-${month}-${day}`;
+
+            $("#txtFechaCreacion").val(fechaFormateada);
+
             $("#txtVisible").val(data.Visible);
-            
+
         });
-    </script>
+</script>
 
 
 
-    @*Cargar datos en el modal*@
-    @*<script>
-        function FillModalData() {
-            $("#txtNotaCodigo").val(data[0]);
-            $("#txtActivo").val(data[1]);
+
+
+@*ACTUALIZAR LA TABLA*@
+<script>
+    $(document).ready(function () {
+    var table = $('#table').DataTable({
+        select: true,
+        // otras opciones...
+    });
+
+    // Evento de clic en una fila para seleccionarla
+    $('#table').on('click', 'tbody tr', function () {
+        if ($(this).hasClass('selected')) {
+            $(this).removeClass('selected');
+        } else {
+            table.$('tr.selected').removeClass('selected');
+            $(this).addClass('selected');
         }
+    });
 
-    </script>*@
+    // Evento de clic en el botón "Actualizar"
+    $('#btnactualizar').on('click', function () {
+        // Obtén la fila seleccionada
+        var filaSeleccionada = table.row('.selected');
+
+        // Verifica si hay una fila seleccionada
+        if (filaSeleccionada.any()) {
+            // Obtén los datos de los campos de entrada
+            var idActiva = $("#txtIdActiva").val();
+            alert(idActiva);
+            var notaCodigo = $("#txtNotaCodigo").val();
+            var activo = $("#txtActivo").val();
+            var procesoMatricula = $("#txtProcesoMatricula").val();
+            var idUsuario = $("#txtIdUsuario").val();
+            var fechaCreacion = $("#txtFechaCreacion").val();
+            var visible = $("#txtVisible").val();
+
+
+
+            // Utiliza el método row().data() para establecer los datos
+            filaSeleccionada.data({
+                IdActiva: idActiva,
+                NotaCodigo: notaCodigo,
+                Activo: activo,
+                ProcesoMatricula: procesoMatricula,
+                IdUsuario: idUsuario,
+                FechaCreacion: fechaCreacion,
+                Visible: visible
+            });
+
+            // Dibuja la fila actualizada
+            filaSeleccionada.draw();
+
+            // En este punto, deberías enviar los datos actualizados al servidor
+            // utilizando la función actualizarDatos y pasar los datos como argumento
+            actualizarDatos({
+                IdActiva: idActiva,
+                NotaCodigo: notaCodigo,
+                Activo: activo,
+                ProcesoMatricula: procesoMatricula,
+                IdUsuario: idUsuario,
+                FechaCreacion: fechaCreacion,
+                Visible: visible
+            });
+        } else {
+            console.error("No hay fila seleccionada para actualizar.");
+        }
+    });
+
+    // Función para simular la actualización de datos en el servidor
+    function actualizarDatos(datos) {
+        $.ajax({
+            url: "@Url.Action("Actualizar", "Home")",
+            type: "POST",
+            data: datos,
+            success: function (response) {
+                console.log("Respuesta del servidor:", response);
+                // Puedes realizar acciones adicionales según la respuesta del servidor
+                // Por ejemplo, mostrar un mensaje de éxito, etc.
+            },
+            error: function (error) {
+                console.error("Error en la solicitud AJAX: " + error.statusText);
+            }
+        });
+    }
+});
+
+
+
+</script>
 
 }
+
+
 
 
 

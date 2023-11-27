@@ -16,7 +16,9 @@ namespace Proyecto2Demo.Controllers
     public class HomeController : Controller
     {
 
-        //DBCONTEXT
+
+      
+        ////DBCONTEXT
         private SisEdutivaEntities1 db = new SisEdutivaEntities1();
 
         Registro nuevoRegistro;
@@ -70,114 +72,150 @@ namespace Proyecto2Demo.Controllers
             return Json(new { data = obdata }, JsonRequestBehavior.AllowGet);
         }
 
-        
 
-        [HttpPost]
-        public JsonResult InsertarDato(string btnNota, string btnActivo, string btnProceso, string btnUsuario, string btnVisible)
+    [HttpPost]
+    public JsonResult InsertarDato(string btnNota, string btnActivo, string btnProceso, string btnUsuario, string btnVisible)
+    {
+        try
         {
-            try
+            using (SisEdutivaEntities1 db = new SisEdutivaEntities1())
             {
-                using (SisEdutivaEntities1 db = new SisEdutivaEntities1())
+                DateTime dt = DateTime.Now;
+
+                var fla1 = false;
+                var fla2 = false;
+
+                if (btnActivo == "1")
                 {
-                    DateTime dt = DateTime.Now;
-
-                    var fla1 = false;
-                    var fla2 = false;
-
-                    if (btnActivo == "1")
-                    {
-                        fla1 = true;
-                    }
-
-                    if (btnVisible == "1")
-                    {
-                        fla2 = true;
-                    }
-
-                    // Crear un objeto ActivaEvaluacion y establecer sus propiedades
-                    ActivaEvaluacionCRUD dr = new ActivaEvaluacionCRUD
-                    {
-                        NotaCodigo = btnNota,
-                        Activo = fla1,
-                        ProcesoMatricula = Convert.ToInt32(btnProceso),
-                        IdUsuario = Convert.ToInt32(btnUsuario),
-                        FechaCreacion = dt,
-                        Visible = fla2
-                    };
-
-                    // Llamar al procedimiento almacenado mediante Entity Framework
-                    db.sp_RegistrarRegistro22(
-                        dr.NotaCodigo,
-                        dr.Activo,
-                        dr.ProcesoMatricula,
-                        dr.IdUsuario,
-                        dr.FechaCreacion,
-                        dr.Visible
-                    );
+                    fla1 = true;
                 }
 
-                return Json(new { success = true, message = "Datos ingresados correctamente a la tabla." });
+                if (btnVisible == "1")
+                {
+                    fla2 = true;
+                }
+
+                // Crear un objeto ActivaEvaluacion y establecer sus propiedades
+                ActivaEvaluacionCRUD dr = new ActivaEvaluacionCRUD
+                {
+                    NotaCodigo = btnNota,
+                    Activo = fla1,
+                    ProcesoMatricula = Convert.ToInt32(btnProceso),
+                    IdUsuario = Convert.ToInt32(btnUsuario),
+                    FechaCreacion = dt,
+                    Visible = fla2
+                };
+
+                // Llamar al procedimiento almacenado mediante Entity Framework
+                db.sp_RegistrarRegistro22(
+                    dr.NotaCodigo,
+                    dr.Activo,
+                    dr.ProcesoMatricula,
+                    dr.IdUsuario,
+                    dr.FechaCreacion,
+                    dr.Visible
+                );
             }
-            catch (Exception ex)
-            {
-                return Json(new { success = false, message = "Error al insertar datos: " + ex.Message });
-            }
+
+            return Json(new { success = true, message = "Datos ingresados correctamente a la tabla." });
         }
+        catch (Exception ex)
+        {
+            return Json(new { success = false, message = "Error al insertar datos: " + ex.Message });
+        }
+    }
 
         //DBCONTEXT db
 
+        //var usu_rol = new Usuario_Rol.Models.Usuario_Rol()
+        //{
+        //    UsuAsgId = Convert.ToInt32(tiene_asignado),
+        //    PerfilId = Convert.ToInt32(idper),
+        //    UsuarioCreacion = Convert.ToInt32(Session["UsuarioLogeado"]),
+        //    FechaCreacion = DateTime.Now,
+        //    UsuarioModificacion = null,
+        //    FechaModificacion = null,
+        //};
+
+
         [HttpPost]
-        public ActionResult Actualizar(ActivaEvaluacionCRUD modelo)
+        public JsonResult Actualizar(ActivaEvaluacionCRUD modelo)
         {
             if (ModelState.IsValid)
             {
-                // Obtener el objeto existente desde la base de datos
-                var entidadExistente = db.ActivaEvaluacionCRUD.Find(modelo.IdActiva);
-
-                if (entidadExistente != null)
+                try
                 {
-                    // Actualizar propiedades con los nuevos valores
-                    entidadExistente.NotaCodigo = modelo.NotaCodigo;
-                    entidadExistente.Activo = modelo.Activo;
-                    entidadExistente.ProcesoMatricula = modelo.ProcesoMatricula;
-                    entidadExistente.IdUsuario = modelo.IdUsuario;
-                    entidadExistente.Visible = modelo.Visible;
-
-                    // Guardar cambios en la base de datos
-                    db.SaveChanges();
+                    db.Database.ExecuteSqlCommand("ActualizarActivaEvaluacion @IdActiva, @NotaCodigo, @Activo, @ProcesoMatricula, @IdUsuario, @Visible",
+                        new SqlParameter("@IdActiva", modelo.IdActiva),
+                        new SqlParameter("@NotaCodigo", modelo.NotaCodigo),
+                        new SqlParameter("@Activo", modelo.Activo),
+                        new SqlParameter("@ProcesoMatricula", modelo.ProcesoMatricula),
+                        new SqlParameter("@IdUsuario", modelo.IdUsuario),
+                        new SqlParameter("@Visible", modelo.Visible));
 
                     return Json(new { success = true, message = "Datos Actualizados correctamente a la tabla." });
                 }
-                else
+                catch (Exception ex)
                 {
-                    // Manejar el caso en que la entidad no existe
-                    return Json(new { success = false, error = "La entidad no existe." });
+                    return Json(new { success = false, error = "Error al actualizar los datos: " + ex.Message });
                 }
             }
 
-            // Manejar errores de validación si es necesario
             return Json(new { success = false, errors = ModelState.Values.SelectMany(v => v.Errors).Select(e => e.ErrorMessage) });
         }
-
-
-        //METODO GET QUE A LA HORA DE HACER CLICK ME TRAIGA LOS DATOS
-        [HttpGet]
-        public ActionResult ObtenerDatos(int idActiva)
-        {
-            // Obtener datos del registro con el IdActiva proporcionado
-            var datos = db.ActivaEvaluacionCRUD.Find(idActiva);
-
-            if (datos != null)
-            {
-                // Devolver los datos como JSON
-                return Json(datos, JsonRequestBehavior.AllowGet);
-            }
-            else
-            {
-                // Manejar el caso en que el registro no existe
-                return HttpNotFound("El registro no fue encontrado");
-            }
-        }
     }
+
+
+
+
+    //[HttpPost]
+    //    public ActionResult Actualizar(ActivaEvaluacionCRUD modelo)
+    //    {
+    //        if (ModelState.IsValid)
+    //        {
+    //            var entidadExistente = db.ActivaEvaluacionCRUD.Find(modelo.IdActiva);
+
+    //            if (entidadExistente != null)
+    //            {
+    //                entidadExistente.NotaCodigo = modelo.NotaCodigo;
+    //                entidadExistente.Activo = modelo.Activo;
+    //                entidadExistente.ProcesoMatricula = modelo.ProcesoMatricula;
+    //                entidadExistente.IdUsuario = modelo.IdUsuario;
+    //                entidadExistente.Visible = modelo.Visible;
+
+    //                db.SaveChanges();
+
+    //                return Json(new { success = true, message = "Datos actualizados correctamente en la tabla." });
+    //            }
+    //            else
+    //            {
+    //                return Json(new { success = false, error = "La entidad no existe." });
+    //            }
+    //        }
+
+    //        return Json(new { success = false, errors = ModelState.Values.SelectMany(v => v.Errors).Select(e => e.ErrorMessage) });
+    //    }
+    //}
+
+
+    //METODO GET QUE A LA HORA DE HACER CLICK ME TRAIGA LOS DATOS
+    //[HttpGet]
+    //    public ActionResult ObtenerDatos(int idActiva)
+    //    {
+    //        // Obtener datos del registro con el IdActiva proporcionado
+    //        var datos = db.ActivaEvaluacionCRUD.Find(idActiva);
+
+    //        if (datos != null)
+    //        {
+    //            // Devolver los datos como JSON
+    //            return Json(datos, JsonRequestBehavior.AllowGet);
+    //        }
+    //        else
+    //        {
+    //            // Manejar el caso en que el registro no existe
+    //            return HttpNotFound("El registro no fue encontrado");
+    //        }
+    //    }
+    //}
 
 }

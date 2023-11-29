@@ -15,10 +15,10 @@ namespace Proyecto2Demo.Models.DB
     using System.Data.Entity.Core.Objects;
     using System.Linq;
     
-    public partial class SisEdutivaEntities1 : DbContext
+    public partial class SisEdutivaEntities2 : DbContext
     {
-        public SisEdutivaEntities1()
-            : base("name=SisEdutivaEntities1")
+        public SisEdutivaEntities2()
+            : base("name=SisEdutivaEntities2")
         {
         }
     
@@ -29,7 +29,7 @@ namespace Proyecto2Demo.Models.DB
     
         public virtual DbSet<ActivaEvaluacionCRUD> ActivaEvaluacionCRUD { get; set; }
     
-        public virtual int ActualizarActivaEvaluacion(Nullable<int> idActiva, string notaCodigo, Nullable<bool> activo, Nullable<int> procesoMatricula, Nullable<int> idUsuario, Nullable<System.DateTime> fechaCreacion, Nullable<bool> visible)
+        public virtual int ActualizarActivaEvaluacion(Nullable<int> idActiva, string notaCodigo, Nullable<bool> activo, Nullable<int> procesoMatricula, Nullable<int> idUsuario, Nullable<bool> visible)
         {
             var idActivaParameter = idActiva.HasValue ?
                 new ObjectParameter("IdActiva", idActiva) :
@@ -50,11 +50,7 @@ namespace Proyecto2Demo.Models.DB
             var idUsuarioParameter = idUsuario.HasValue ?
                 new ObjectParameter("IdUsuario", idUsuario) :
                 new ObjectParameter("IdUsuario", typeof(int));
-
-            var fechaCreacionParameter = fechaCreacion.HasValue ?
-               new ObjectParameter("FechaCreacion", fechaCreacion) :
-               new ObjectParameter("FechaCreacion", typeof(System.DateTime));
-
+    
             var visibleParameter = visible.HasValue ?
                 new ObjectParameter("Visible", visible) :
                 new ObjectParameter("Visible", typeof(bool));
@@ -62,7 +58,7 @@ namespace Proyecto2Demo.Models.DB
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("ActualizarActivaEvaluacion", idActivaParameter, notaCodigoParameter, activoParameter, procesoMatriculaParameter, idUsuarioParameter, visibleParameter);
         }
     
-        public virtual int sp_RegistrarRegistro22(string notaCodigo, Nullable<bool> activo, Nullable<int> procesoMatricula, Nullable<int> idUsuario, Nullable<System.DateTime> fechaCreacion, Nullable<bool> visible)
+        public virtual int sp_RegistrarRegistro22(string notaCodigo, Nullable<bool> activo, Nullable<int> procesoMatricula, Nullable<int> idUsuario, DateTime? fechaCreacion, Nullable<bool> visible)
         {
             var notaCodigoParameter = notaCodigo != null ?
                 new ObjectParameter("NotaCodigo", notaCodigo) :
@@ -79,11 +75,7 @@ namespace Proyecto2Demo.Models.DB
             var idUsuarioParameter = idUsuario.HasValue ?
                 new ObjectParameter("IdUsuario", idUsuario) :
                 new ObjectParameter("IdUsuario", typeof(int));
-
-            var fechaCreacionParameter = fechaCreacion.HasValue ?
-               new ObjectParameter("FechaCreacion", fechaCreacion) :
-               new ObjectParameter("FechaCreacion", typeof(System.DateTime));
-
+    
             var visibleParameter = visible.HasValue ?
                 new ObjectParameter("Visible", visible) :
                 new ObjectParameter("Visible", typeof(bool));
@@ -91,7 +83,15 @@ namespace Proyecto2Demo.Models.DB
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("sp_RegistrarRegistro22", notaCodigoParameter, activoParameter, procesoMatriculaParameter, idUsuarioParameter, visibleParameter);
         }
 
-        
-        
+      
+
+        public virtual int EliminarActivaEvaluacion(Nullable<int> idActiva)
+        {
+            var idActivaParameter = idActiva.HasValue ?
+                new ObjectParameter("IdActiva", idActiva) :
+                new ObjectParameter("IdActiva", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("EliminarActivaEvaluacion", idActivaParameter);
+        }
     }
 }

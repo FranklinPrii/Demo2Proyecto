@@ -11,19 +11,14 @@ namespace Proyecto2Demo.Models.DB
 {
     using System;
     using System.Collections.Generic;
-    using System.ComponentModel.DataAnnotations;
-
+    
     public partial class ActivaEvaluacionCRUD
     {
-       
-
         public int IdActiva { get; set; }
         public string NotaCodigo { get; set; }
         public Nullable<bool> Activo { get; set; }
         public Nullable<int> ProcesoMatricula { get; set; }
         public Nullable<int> IdUsuario { get; set; }
-
-        //[DisplayFormat(DataFormatString ="{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
         public Nullable<System.DateTime> FechaCreacion { get; set; }
         public Nullable<bool> Visible { get; set; }
     }

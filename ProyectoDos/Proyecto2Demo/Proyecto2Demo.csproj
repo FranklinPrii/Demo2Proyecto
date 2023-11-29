@@ -2296,13 +2296,6 @@
     <Content Include="Content\bootstrap-grid.rtl.css.map" />
     <Content Include="Content\bootstrap-grid.min.css.map" />
     <Content Include="Content\bootstrap-grid.css.map" />
-    <EntityDeploy Include="Models\DB\Model1.edmx">
-      <Generator>EntityModelCodeGenerator</Generator>
-      <LastGenOutput>Model1.Designer.cs</LastGenOutput>
-    </EntityDeploy>
-    <Content Include="Models\DB\Model1.edmx.diagram">
-      <DependentUpon>Model1.edmx</DependentUpon>
-    </Content>
     <Content Include="fontawesome\fontawesome-free-6.4.2-web\less\brands.less" />
     <Content Include="fontawesome\fontawesome-free-6.4.2-web\less\fontawesome.less" />
     <Content Include="fontawesome\fontawesome-free-6.4.2-web\less\regular.less" />
@@ -2356,6 +2349,13 @@
     <Content Include="fontawesome\fontawesome-free-6.4.2-web\webfonts\fa-solid-900.woff2" />
     <Content Include="fontawesome\fontawesome-free-6.4.2-web\webfonts\fa-v4compatibility.ttf" />
     <Content Include="fontawesome\fontawesome-free-6.4.2-web\webfonts\fa-v4compatibility.woff2" />
+    <EntityDeploy Include="Models\DB\Model1.edmx">
+      <Generator>EntityModelCodeGenerator</Generator>
+      <LastGenOutput>Model1.Designer.cs</LastGenOutput>
+    </EntityDeploy>
+    <Content Include="Models\DB\Model1.edmx.diagram">
+      <DependentUpon>Model1.edmx</DependentUpon>
+    </Content>
     <None Include="Scripts\jquery-3.4.1.intellisense.js" />
     <Content Include="Scripts\fontawesome\all.js" />
     <Content Include="Scripts\fontawesome\all.min.js" />

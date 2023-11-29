@@ -22,6 +22,15 @@
             <div class="modal-body">
 
                 <div class="form-group">
+                    <label>IdActiva</label>
+                </div>
+                <div class="form-group">
+
+                    <input id="txtIdActiva" runat="server" class="form-control" />
+
+                </div>
+
+                <div class="form-group">
                     <label>NotaCodigo</label>
                 </div>
                 <div class="form-group">
@@ -179,7 +188,7 @@
                                 {
                                     "data": function () {
                                         return '<button   value="Actualizar"  title="Actualizar" class="btn btn-primary btn-edit"   data-bs-toggle="modal" data-bs-target="#myModal"><i class="fa-sharp fa-light fa-pen-to-square"></i></button>&nbsp;&nbsp;&nbsp;' +
-                                            '<button value="Eliminar" title="Eliminar" class="btn btn-danger "><i class="fa-solid fa-trash"></i></button>';
+                                            '<button value="Eliminar" title="Eliminar" class="btn btn-danger btn-delete"><i class="fa-solid fa-trash"></i></button>';
                                     }
 
                                 },
@@ -195,6 +204,7 @@
 
     </script>
 
+    @*Script para INSERTAR*@
     <script>
                         $(document).ready(function () {
                             $("#btnInsertar").click(function () {
@@ -247,10 +257,8 @@
 
 
             var data = table.row($(this).closest('tr')).data();
-            console.log(data.IdActiva);
 
-            $("txtIdActiva").val(data.IdActiva);
-            
+            $("#txtIdActiva").val(data.IdActiva);
             $("#txtNotaCodigo").val(data.NotaCodigo);
             $("#txtActivo").val(data.Activo);
             $("#txtProcesoMatricula").val(data.ProcesoMatricula);
@@ -290,89 +298,119 @@
 
 @*ACTUALIZAR LA TABLA*@
 <script>
+
     $(document).ready(function () {
-    var table = $('#table').DataTable({
-        select: true,
-        // otras opciones...
-    });
+        var table = $('#table').DataTable({
+            select: true,
+            // otras opciones...
+        });
 
-    // Evento de clic en una fila para seleccionarla
-    $('#table').on('click', 'tbody tr', function () {
-        if ($(this).hasClass('selected')) {
-            $(this).removeClass('selected');
-        } else {
-            table.$('tr.selected').removeClass('selected');
-            $(this).addClass('selected');
-        }
-    });
-
-    // Evento de clic en el botón "Actualizar"
-    $('#btnactualizar').on('click', function () {
-        // Obtén la fila seleccionada
-        var filaSeleccionada = table.row('.selected');
-
-        // Verifica si hay una fila seleccionada
-        if (filaSeleccionada.any()) {
-            // Obtén los datos de los campos de entrada
-            var idActiva = $("#txtIdActiva").val();
-            alert(idActiva);
-            var notaCodigo = $("#txtNotaCodigo").val();
-            var activo = $("#txtActivo").val();
-            var procesoMatricula = $("#txtProcesoMatricula").val();
-            var idUsuario = $("#txtIdUsuario").val();
-            var fechaCreacion = $("#txtFechaCreacion").val();
-            var visible = $("#txtVisible").val();
+        // Evento de clic en una fila para seleccionarla
+        $('#table').on('click', 'tbody tr', function () {
+            if ($(this).hasClass('selected')) {
+                $(this).removeClass('selected');
+            } else {
+                table.$('tr.selected').removeClass('selected');
+                $(this).addClass('selected');
+            }
+        });
 
 
+        // Evento de clic en el botón "Actualizar"
+        $('#btnactualizar').on('click', function () {
+            // Obtén la fila seleccionada
+            var filaSeleccionada = table.row('.selected');
 
-            // Utiliza el método row().data() para establecer los datos
-            filaSeleccionada.data({
-                IdActiva: idActiva,
-                NotaCodigo: notaCodigo,
-                Activo: activo,
-                ProcesoMatricula: procesoMatricula,
-                IdUsuario: idUsuario,
-                FechaCreacion: fechaCreacion,
-                Visible: visible
+            // Verifica si hay una fila seleccionada
+            if (filaSeleccionada.any()) {
+                // Obtén los datos de los campos de entrada
+                var idActiva = $("#txtIdActiva").val();
+                var notaCodigo = $("#txtNotaCodigo").val();
+                var activo = $("#txtActivo").val();
+                var procesoMatricula = $("#txtProcesoMatricula").val();
+                var idUsuario = $("#txtIdUsuario").val();
+                var fechaCreacion = $("#txtFechaCreacion").val();
+                var visible = $("#txtVisible").val();
+
+
+
+                // Utiliza el método row().data() para establecer los datos
+                filaSeleccionada.data({
+                    IdActiva: idActiva,
+                    NotaCodigo: notaCodigo,
+                    Activo: activo,
+                    ProcesoMatricula: procesoMatricula,
+                    IdUsuario: idUsuario,
+                    FechaCreacion: fechaCreacion,
+                    Visible: visible
+                });
+
+                // Dibuja la fila actualizada
+                filaSeleccionada.draw();
+
+                // En este punto, deberías enviar los datos actualizados al servidor
+                // utilizando la función actualizarDatos y pasar los datos como argumento
+                actualizarDatos({
+                    IdActiva: idActiva,
+                    NotaCodigo: notaCodigo,
+                    Activo: activo,
+                    ProcesoMatricula: procesoMatricula,
+                    IdUsuario: idUsuario,
+                    FechaCreacion: fechaCreacion,
+                    Visible: visible
+                });
+            } else {
+                console.error("No hay fila seleccionada para actualizar.");
+            }
+        });
+
+        // Función para simular la actualización de datos en el servidor
+        function actualizarDatos(datos) {
+            $.ajax({
+                url: "@Url.Action("Actualizar", "Home")",
+                type: "POST",
+                data: datos,
+                success: function (response) {
+                    console.log("Respuesta del servidor:", response);
+                    alert("Registro Actualizado Correctamente")
+                    // Puedes realizar acciones adicionales según la respuesta del servidor
+                    // Por ejemplo, mostrar un mensaje de éxito, etc.
+                },
+                error: function (error) {
+                    console.error("Error en la solicitud AJAX: " + error.statusText);
+                }
             });
-
-            // Dibuja la fila actualizada
-            filaSeleccionada.draw();
-
-            // En este punto, deberías enviar los datos actualizados al servidor
-            // utilizando la función actualizarDatos y pasar los datos como argumento
-            actualizarDatos({
-                IdActiva: idActiva,
-                NotaCodigo: notaCodigo,
-                Activo: activo,
-                ProcesoMatricula: procesoMatricula,
-                IdUsuario: idUsuario,
-                FechaCreacion: fechaCreacion,
-                Visible: visible
-            });
-        } else {
-            console.error("No hay fila seleccionada para actualizar.");
         }
+
     });
 
-    // Función para simular la actualización de datos en el servidor
-    function actualizarDatos(datos) {
+
+</script>
+
+
+<script>
+    $(document).on('click', '.btn-delete', function () {
+
+        
+        
+        var idActiva = $("#txtIdActiva").val();
+        alert("HOLAAAA ELIMNAR")
+
         $.ajax({
-            url: "@Url.Action("Actualizar", "Home")",
+            url: "@Url.Action("EliminarActivaEvaluacion", "Home")",
             type: "POST",
-            data: datos,
+            data: { IdActiva: idActiva},
             success: function (response) {
-                console.log("Respuesta del servidor:", response);
+                console.log("Respues del servidor:", response);
+                alert("Registro Elminado Correctamente");
+
                 // Puedes realizar acciones adicionales según la respuesta del servidor
-                // Por ejemplo, mostrar un mensaje de éxito, etc.
             },
             error: function (error) {
                 console.error("Error en la solicitud AJAX: " + error.statusText);
             }
         });
-    }
 });
-
 
 
 </script>

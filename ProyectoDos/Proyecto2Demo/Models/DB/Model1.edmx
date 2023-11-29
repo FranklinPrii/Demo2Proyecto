@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="SisEdutivaModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+    <Schema Namespace="SisEdutivaModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="ActivaEvaluacionCRUD">
           <Key>
             <PropertyRef Name="IdActiva" />
@@ -25,6 +25,9 @@
           <Parameter Name="IdUsuario" Type="int" Mode="In" />
           <Parameter Name="Visible" Type="bit" Mode="In" />
         </Function>
+        <Function Name="EliminarActivaEvaluacion" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="IdActiva" Type="int" Mode="In" />
+        </Function>
         <Function Name="sp_RegistrarRegistro22" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="NotaCodigo" Type="nvarchar" Mode="In" />
           <Parameter Name="Activo" Type="bit" Mode="In" />
@@ -35,8 +38,7 @@
         <EntityContainer Name="SisEdutivaModelStoreContainer">
           <EntitySet Name="ActivaEvaluacionCRUD" EntityType="Self.ActivaEvaluacionCRUD" Schema="dbo" store:Type="Tables" />
         </EntityContainer>
-      </Schema>
-    </edmx:StorageModels>
+      </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="SisEdutivaModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
@@ -52,7 +54,7 @@
           <Property Name="FechaCreacion" Type="DateTime" Precision="3" />
           <Property Name="Visible" Type="Boolean" />
         </EntityType>
-        <EntityContainer Name="SisEdutivaEntities1" annotation:LazyLoadingEnabled="true">
+        <EntityContainer Name="SisEdutivaEntities2" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="ActivaEvaluacionCRUD" EntityType="Self.ActivaEvaluacionCRUD" />
           <FunctionImport Name="ActualizarActivaEvaluacion">
             <Parameter Name="IdActiva" Mode="In" Type="Int32" />
@@ -69,13 +71,16 @@
             <Parameter Name="IdUsuario" Mode="In" Type="Int32" />
             <Parameter Name="Visible" Mode="In" Type="Boolean" />
           </FunctionImport>
+          <FunctionImport Name="EliminarActivaEvaluacion">
+            <Parameter Name="IdActiva" Mode="In" Type="Int32" />
+          </FunctionImport>
         </EntityContainer>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
     <edmx:Mappings>
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
-        <EntityContainerMapping StorageEntityContainer="SisEdutivaModelStoreContainer" CdmEntityContainer="SisEdutivaEntities1">
+        <EntityContainerMapping StorageEntityContainer="SisEdutivaModelStoreContainer" CdmEntityContainer="SisEdutivaEntities2">
           <EntitySetMapping Name="ActivaEvaluacionCRUD">
             <EntityTypeMapping TypeName="SisEdutivaModel.ActivaEvaluacionCRUD">
               <MappingFragment StoreEntitySet="ActivaEvaluacionCRUD">
@@ -91,6 +96,7 @@
           </EntitySetMapping>
           <FunctionImportMapping FunctionImportName="ActualizarActivaEvaluacion" FunctionName="SisEdutivaModel.Store.ActualizarActivaEvaluacion" />
           <FunctionImportMapping FunctionImportName="sp_RegistrarRegistro22" FunctionName="SisEdutivaModel.Store.sp_RegistrarRegistro22" />
+          <FunctionImportMapping FunctionImportName="EliminarActivaEvaluacion" FunctionName="SisEdutivaModel.Store.EliminarActivaEvaluacion" />
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

@@ -4,7 +4,7 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="81494656dd8d4b0c9ebd33140ff1e475" Name="Diagram1">
+      <Diagram DiagramId="1f8045cc2af3415c904fde4fff401ae4" Name="Diagram1">
         <EntityTypeShape EntityType="SisEdutivaModel.ActivaEvaluacionCRUD" Width="1.5" PointX="0.75" PointY="0.75" IsExpanded="true" />
       </Diagram>
     </edmx:Diagrams>
